@@ -133,6 +133,28 @@ lowercase. Unknown-email login attempts still perform one Argon2 derivation to
 reduce timing differences. A small in-process throttle blocks an email after
 five failed attempts in ten minutes.
 
+### API integration
+
+The supported integration is the generated `takt_client` package. Serverpod
+maps endpoint methods to HTTP routes; raw HTTP calls pass every argument as a
+query parameter, not as a JSON body. For example, a verified data call is:
+
+```text
+GET /shop/fetch?accessKey=XXXXX-XXXXX-XXXXX-XXXXX
+```
+
+| Endpoint group | Main methods | Credential |
+| --- | --- | --- |
+| `auth` | `register`, `login`, `me`, `logout`, `changePassword` | Session token for `me`/`logout`/`changePassword` |
+| `workspace` | `create`, `claim`, `list`, `access`, `members`, `invite`, `setRole`, `removeMember` | Session token, except public `access(accessKey)` |
+| `shop`, `workCenter`, `job`, `schedule` | Read/write shop data, run and inspect schedules | Workspace key (`accessKey`) |
+
+`AuthResult.token` is the account session token. Workspace data calls use the
+scoped `WorkspaceAccess.accessKey`, which is not interchangeable with the
+session token. User-facing validation, auth, and permission failures are
+serialized as HTTP 400 `TaktException` responses; read the `message` field and
+show it as-is.
+
 ## Run it locally
 
 ### Prerequisites
