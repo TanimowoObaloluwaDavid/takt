@@ -1,0 +1,13 @@
+### Everything the client needs to render one run.
+class: ScheduleSnapshot
+fields:
+  ### The run header.
+  run: ScheduleRun
+  ### Placed operations.
+  scheduledOps: List<ScheduledOp>
+  ### Per-job verdicts.
+  diagnosis: ShopDiagnosis
+  ### Jobs referenced by the run.
+  jobs: List<Job>
+  ### Work centers referenced by the run.
+  workCenters: List<WorkCenter>

@@ -1,0 +1,26 @@
+### A placed operation on a specific machine.
+class: ScheduledOp
+table: scheduled_op
+fields:
+  ### Owning run.
+  runId: int
+  ### Job this operation belongs to.
+  jobId: int
+  ### Source operation.
+  operationId: int
+  ### Work center used.
+  workCenterId: int
+  ### Index of the parallel machine inside the work center.
+  machineIndex: int
+  ### Start minute relative to the run horizon.
+  startMinute: int
+  ### End minute relative to the run horizon.
+  endMinute: int
+  ### Minutes this operation waited for its machine.
+  queueMinutes: int
+  ### Changeover minutes charged before this operation.
+  changeoverMinutes: int
+  ### Position on this machine, starting at zero.
+  sequenceOnMachine: int
+  ### Whether the parent job finishes after its due time.
+  isTardy: bool

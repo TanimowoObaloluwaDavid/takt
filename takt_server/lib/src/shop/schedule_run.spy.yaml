@@ -1,0 +1,26 @@
+### One persisted result of the solver. Times are minutes from horizonStart.
+class: ScheduleRun
+table: schedule_run
+fields:
+  ### Owning shop.
+  shopId: int
+  ### When the run was produced.
+  createdAt: DateTime
+  ### Seed used, so any run can be reproduced exactly.
+  seed: int
+  ### Calendar anchor that minute zero maps to.
+  horizonStart: DateTime
+  ### Jobs that finished on or before their due time.
+  onTimeJobs: int
+  ### Jobs that finished late.
+  tardyJobs: int
+  ### Sum of minutes late across all jobs in this run.
+  totalTardinessMinutes: int
+  ### Time from minute zero until the last operation ends.
+  makespanMinutes: int
+  ### Solver objective (lower is better).
+  objective: double
+  ### Work center with the highest utilisation.
+  bottleneckWorkCenterId: int
+  ### Utilisation of the bottleneck, 0..1+.
+  bottleneckUtilization: double

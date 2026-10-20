@@ -1,0 +1,16 @@
+### One step in a job's routing. Operations run in ascending sequence.
+class: Operation
+table: operation
+fields:
+  ### Owning job.
+  jobId: int
+  ### Position in the routing, starting at 10 and stepping by 10.
+  sequence: int
+  ### Work center that performs this step.
+  workCenterId: int
+  ### Fixed setup time for this step.
+  setupMinutes: int
+  ### Run time per unit, in minutes.
+  unitRunMinutes: double
+  ### What happens at this step.
+  description: String

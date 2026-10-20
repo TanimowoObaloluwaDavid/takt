@@ -1,0 +1,23 @@
+### The whole shop's verdict for one run.
+class: ShopDiagnosis
+fields:
+  ### Run these numbers belong to.
+  runId: int
+  ### Jobs on time.
+  onTimeJobs: int
+  ### Jobs late.
+  tardyJobs: int
+  ### Total minutes late across the shop.
+  totalTardinessMinutes: int
+  ### Minutes from horizon start to the last operation.
+  makespanMinutes: int
+  ### Work center that constrains the shop.
+  bottleneckWorkCenterId: int
+  ### Its name.
+  bottleneckWorkCenterName: String
+  ### Its utilisation, 0..1+.
+  bottleneckUtilization: double
+  ### Total minutes jobs queued at the bottleneck.
+  bottleneckQueueMinutes: int
+  ### Per-job verdicts, late jobs first.
+  jobs: List<JobDiagnosis>

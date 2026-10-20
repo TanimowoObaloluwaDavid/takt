@@ -1,0 +1,19 @@
+### Delta between the current run and a capacity experiment.
+class: WhatIfResult
+fields:
+  ### Work center that was changed.
+  workCenterName: String
+  ### Machines added for the experiment.
+  extraMachines: int
+  ### Late jobs in the current run.
+  baselineTardyJobs: int
+  ### Late jobs with the extra capacity.
+  scenarioTardyJobs: int
+  ### Total tardiness in the current run.
+  baselineTardinessMinutes: int
+  ### Total tardiness with the extra capacity.
+  scenarioTardinessMinutes: int
+  ### Tardiness minutes removed. Negative means the change made things worse.
+  savedTardinessMinutes: int
+  ### Jobs moved from late to on time.
+  jobsSaved: int

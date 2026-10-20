@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Takt is a finite-capacity production scheduler for high-mix job shops. Every late job names the work center, the queue time, and the load that caused it.">
+  <meta name="theme-color" content="#F2F0E9">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Takt">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Takt — the scheduler that tells you why you're late">
+  <meta property="og:description" content="Finite-capacity scheduling for high-mix, low-volume job shops. Deterministic, explainable, and honest about the constraint.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="icons/Icon-512.png">
+
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <title>Takt — the scheduler that tells you why you're late</title>
+
+  <style>
+    html, body {
+      background: #F2F0E9;
+      margin: 0;
+      height: 100%;
+    }
+    #boot {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: #F2F0E9;
+      transition: opacity 240ms ease;
+      z-index: 2;
+    }
+    #boot img {
+      width: 56px;
+      height: 56px;
+    }
+    #boot span {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.42em;
+      color: #14160F;
+      padding-left: 0.42em;
+    }
+    #boot.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    noscript {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #14160F;
+      padding: 32px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="boot">
+    <img src="icons/Icon-192.png" alt="">
+    <span>TAKT</span>
+  </div>
+  <noscript>Takt needs JavaScript enabled to schedule and draw the board.</noscript>
+
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var boot = document.getElementById('boot');
+      if (boot) boot.classList.add('hidden');
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

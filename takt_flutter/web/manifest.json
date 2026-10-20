@@ -1,0 +1,36 @@
+{
+    "name": "Takt — Job Shop Scheduler",
+    "short_name": "Takt",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#F2F0E9",
+    "theme_color": "#F2F0E9",
+    "description": "Finite-capacity production scheduling for high-mix, low-volume job shops. Every late job names the constraint that caused it.",
+    "orientation": "any",
+    "categories": ["business", "productivity"],
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

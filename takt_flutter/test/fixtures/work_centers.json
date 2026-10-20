@@ -1,0 +1,72 @@
+[
+  {
+    "__className__": "WorkCenter",
+    "id": 27,
+    "shopId": 6,
+    "name": "Assembly",
+    "code": "ASSY",
+    "machines": 2,
+    "changeoverMinutes": 10,
+    "notes": "Fitters, two bays"
+  },
+  {
+    "__className__": "WorkCenter",
+    "id": 23,
+    "shopId": 6,
+    "name": "CNC Mill 1",
+    "code": "CNC-01",
+    "machines": 2,
+    "changeoverMinutes": 25,
+    "notes": "Two 3-axis vertical mills"
+  },
+  {
+    "__className__": "WorkCenter",
+    "id": 24,
+    "shopId": 6,
+    "name": "CNC Mill 2",
+    "code": "CNC-02",
+    "machines": 1,
+    "changeoverMinutes": 30,
+    "notes": "Large-envelope mill, single spindle"
+  },
+  {
+    "__className__": "WorkCenter",
+    "id": 26,
+    "shopId": 6,
+    "name": "Deburr",
+    "code": "DEBURR",
+    "machines": 2,
+    "changeoverMinutes": 5,
+    "notes": "Manual benches"
+  },
+  {
+    "__className__": "WorkCenter",
+    "id": 28,
+    "shopId": 6,
+    "name": "Inspection",
+    "code": "INSP",
+    "machines": 1,
+    "changeoverMinutes": 5,
+    "notes": "CMM and hand tools"
+  },
+  {
+    "__className__": "WorkCenter",
+    "id": 25,
+    "shopId": 6,
+    "name": "Turning",
+    "code": "LATHE",
+    "machines": 1,
+    "changeoverMinutes": 20,
+    "notes": "CNC lathe with bar feeder"
+  },
+  {
+    "__className__": "WorkCenter",
+    "id": 29,
+    "shopId": 6,
+    "name": "Paint",
+    "code": "PAINT",
+    "machines": 1,
+    "changeoverMinutes": 40,
+    "notes": "Batch booth, colour changes hurt"
+  }
+]

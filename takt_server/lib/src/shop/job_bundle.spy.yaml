@@ -1,0 +1,7 @@
+### A job and its full routing, saved as one unit.
+class: JobBundle
+fields:
+  ### Job header.
+  job: Job
+  ### Routing in ascending sequence.
+  operations: List<Operation>

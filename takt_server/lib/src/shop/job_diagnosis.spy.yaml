@@ -1,0 +1,29 @@
+### Why one job lands where it does. Computed, never stored.
+class: JobDiagnosis
+fields:
+  ### Job id.
+  jobId: int
+  ### Shop-floor reference.
+  code: String
+  ### Short description.
+  title: String
+  ### Due minute relative to horizon.
+  dueMinute: int
+  ### Finish minute relative to horizon.
+  finishMinute: int
+  ### Minutes late, zero when on time.
+  tardinessMinutes: int
+  ### Total queue time across the routing.
+  queueMinutes: int
+  ### Work center where this job lost the most time waiting.
+  bindingWorkCenterId: int
+  ### Name of that work center.
+  bindingWorkCenterName: String
+  ### Queue minutes lost at that work center.
+  bindingQueueMinutes: int
+  ### One-sentence causal explanation.
+  explanation: String
+  ### Human-readable step trace.
+  chain: List<String>
+  ### Whether the job is late.
+  isTardy: bool

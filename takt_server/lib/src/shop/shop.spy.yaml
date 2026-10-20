@@ -1,0 +1,15 @@
+### A job shop workspace. The access key is the only credential and scopes
+### every query; it is generated server-side and never guessed by the client.
+class: Shop
+table: shop
+fields:
+  ### Display name of the shop.
+  name: String
+  ### Unguessable workspace key. Acts as the bearer credential for all calls.
+  accessKey: String
+  ### ISO currency code used for display only.
+  currency: String
+  ### Minutes of available production time per working day.
+  minutesPerDay: int
+  ### When the workspace was created.
+  createdAt: DateTime

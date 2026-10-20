@@ -1,0 +1,10 @@
+name: takt_client
+description: Takt client — generated Serverpod client for the scheduling API.
+
+environment:
+  sdk: '^3.10.3'
+
+resolution: workspace
+
+dependencies:
+  serverpod_client: 4.0.0-beta.4

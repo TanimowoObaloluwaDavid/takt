@@ -1,0 +1,664 @@
+[
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 49,
+      "shopId": 6,
+      "code": "J-1047",
+      "title": "Manifold block (rush)",
+      "customer": "Northline Hydraulics",
+      "quantity": 6,
+      "dueAt": "2026-10-21T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 3,
+      "notes": "Air-freight slots already booked."
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 143,
+        "jobId": 49,
+        "sequence": 10,
+        "workCenterId": 23,
+        "setupMinutes": 60,
+        "unitRunMinutes": 10.0,
+        "description": "Face and drill"
+      },
+      {
+        "__className__": "Operation",
+        "id": 144,
+        "jobId": 49,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 5,
+        "unitRunMinutes": 3.0,
+        "description": "Break edges"
+      },
+      {
+        "__className__": "Operation",
+        "id": 145,
+        "jobId": 49,
+        "sequence": 30,
+        "workCenterId": 28,
+        "setupMinutes": 10,
+        "unitRunMinutes": 3.0,
+        "description": "CMM check"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 56,
+      "shopId": 6,
+      "code": "J-1054",
+      "title": "End cap",
+      "customer": "Alder Controls",
+      "quantity": 160,
+      "dueAt": "2026-10-21T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 1,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 163,
+        "jobId": 56,
+        "sequence": 10,
+        "workCenterId": 24,
+        "setupMinutes": 50,
+        "unitRunMinutes": 5.0,
+        "description": "Turn and face"
+      },
+      {
+        "__className__": "Operation",
+        "id": 164,
+        "jobId": 56,
+        "sequence": 20,
+        "workCenterId": 29,
+        "setupMinutes": 25,
+        "unitRunMinutes": 2.0,
+        "description": "Topcoat"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 47,
+      "shopId": 6,
+      "code": "J-1045",
+      "title": "Bracket set",
+      "customer": "Calder Drive",
+      "quantity": 300,
+      "dueAt": "2026-10-21T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 2,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 138,
+        "jobId": 47,
+        "sequence": 10,
+        "workCenterId": 24,
+        "setupMinutes": 40,
+        "unitRunMinutes": 3.0,
+        "description": "Mill profile"
+      },
+      {
+        "__className__": "Operation",
+        "id": 139,
+        "jobId": 47,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 10,
+        "unitRunMinutes": 1.0,
+        "description": "Tumble and deburr"
+      },
+      {
+        "__className__": "Operation",
+        "id": 140,
+        "jobId": 47,
+        "sequence": 30,
+        "workCenterId": 29,
+        "setupMinutes": 25,
+        "unitRunMinutes": 2.0,
+        "description": "Powder coat"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 53,
+      "shopId": 6,
+      "code": "J-1051",
+      "title": "Adapter plate",
+      "customer": "Meridian Fluid",
+      "quantity": 240,
+      "dueAt": "2026-10-21T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 1,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 155,
+        "jobId": 53,
+        "sequence": 10,
+        "workCenterId": 24,
+        "setupMinutes": 35,
+        "unitRunMinutes": 4.0,
+        "description": "Mill outline and holes"
+      },
+      {
+        "__className__": "Operation",
+        "id": 156,
+        "jobId": 53,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 10,
+        "unitRunMinutes": 1.0,
+        "description": "Tumble and deburr"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 44,
+      "shopId": 6,
+      "code": "J-1042",
+      "title": "Pump housing",
+      "customer": "Northline Hydraulics",
+      "quantity": 60,
+      "dueAt": "2026-10-22T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 2,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 127,
+        "jobId": 44,
+        "sequence": 10,
+        "workCenterId": 24,
+        "setupMinutes": 90,
+        "unitRunMinutes": 14.0,
+        "description": "Bore and face"
+      },
+      {
+        "__className__": "Operation",
+        "id": 128,
+        "jobId": 44,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 5,
+        "unitRunMinutes": 2.0,
+        "description": "Break edges"
+      },
+      {
+        "__className__": "Operation",
+        "id": 129,
+        "jobId": 44,
+        "sequence": 30,
+        "workCenterId": 27,
+        "setupMinutes": 20,
+        "unitRunMinutes": 6.0,
+        "description": "Fit seals"
+      },
+      {
+        "__className__": "Operation",
+        "id": 130,
+        "jobId": 44,
+        "sequence": 40,
+        "workCenterId": 28,
+        "setupMinutes": 10,
+        "unitRunMinutes": 2.0,
+        "description": "Pressure test"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 45,
+      "shopId": 6,
+      "code": "J-1043",
+      "title": "Valve body",
+      "customer": "Meridian Fluid",
+      "quantity": 25,
+      "dueAt": "2026-10-22T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 3,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 131,
+        "jobId": 45,
+        "sequence": 10,
+        "workCenterId": 25,
+        "setupMinutes": 45,
+        "unitRunMinutes": 9.0,
+        "description": "Turn and thread"
+      },
+      {
+        "__className__": "Operation",
+        "id": 132,
+        "jobId": 45,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 5,
+        "unitRunMinutes": 2.0,
+        "description": "Break edges"
+      },
+      {
+        "__className__": "Operation",
+        "id": 133,
+        "jobId": 45,
+        "sequence": 30,
+        "workCenterId": 28,
+        "setupMinutes": 8,
+        "unitRunMinutes": 3.0,
+        "description": "Thread gauge"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 50,
+      "shopId": 6,
+      "code": "J-1048",
+      "title": "Housing weldment",
+      "customer": "Voss Equipment",
+      "quantity": 30,
+      "dueAt": "2026-10-23T16:00:00.000Z",
+      "releaseAt": "2026-10-21T23:00:00.000Z",
+      "priority": 1,
+      "notes": "Castings land on day two."
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 146,
+        "jobId": 50,
+        "sequence": 10,
+        "workCenterId": 24,
+        "setupMinutes": 80,
+        "unitRunMinutes": 16.0,
+        "description": "Face mounting pads"
+      },
+      {
+        "__className__": "Operation",
+        "id": 147,
+        "jobId": 50,
+        "sequence": 20,
+        "workCenterId": 27,
+        "setupMinutes": 30,
+        "unitRunMinutes": 10.0,
+        "description": "Weld and align"
+      },
+      {
+        "__className__": "Operation",
+        "id": 148,
+        "jobId": 50,
+        "sequence": 30,
+        "workCenterId": 28,
+        "setupMinutes": 12,
+        "unitRunMinutes": 3.0,
+        "description": "Dimensional report"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 43,
+      "shopId": 6,
+      "code": "J-1041",
+      "title": "Hydraulic manifold block",
+      "customer": "Northline Hydraulics",
+      "quantity": 12,
+      "dueAt": "2026-10-23T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 3,
+      "notes": "Customer inspection required before dispatch."
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 124,
+        "jobId": 43,
+        "sequence": 10,
+        "workCenterId": 23,
+        "setupMinutes": 60,
+        "unitRunMinutes": 8.0,
+        "description": "Face and pocket"
+      },
+      {
+        "__className__": "Operation",
+        "id": 125,
+        "jobId": 43,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 5,
+        "unitRunMinutes": 2.0,
+        "description": "Break edges"
+      },
+      {
+        "__className__": "Operation",
+        "id": 126,
+        "jobId": 43,
+        "sequence": 30,
+        "workCenterId": 28,
+        "setupMinutes": 10,
+        "unitRunMinutes": 3.0,
+        "description": "CMM check"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 52,
+      "shopId": 6,
+      "code": "J-1050",
+      "title": "Control arm",
+      "customer": "Meridian Fluid",
+      "quantity": 45,
+      "dueAt": "2026-10-23T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 2,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 152,
+        "jobId": 52,
+        "sequence": 10,
+        "workCenterId": 23,
+        "setupMinutes": 55,
+        "unitRunMinutes": 7.0,
+        "description": "Mill slot and holes"
+      },
+      {
+        "__className__": "Operation",
+        "id": 153,
+        "jobId": 52,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 5,
+        "unitRunMinutes": 2.0,
+        "description": "Break edges"
+      },
+      {
+        "__className__": "Operation",
+        "id": 154,
+        "jobId": 52,
+        "sequence": 30,
+        "workCenterId": 29,
+        "setupMinutes": 20,
+        "unitRunMinutes": 3.0,
+        "description": "Topcoat"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 55,
+      "shopId": 6,
+      "code": "J-1053",
+      "title": "Valve stem",
+      "customer": "Alder Controls",
+      "quantity": 150,
+      "dueAt": "2026-10-24T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 2,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 160,
+        "jobId": 55,
+        "sequence": 10,
+        "workCenterId": 25,
+        "setupMinutes": 40,
+        "unitRunMinutes": 4.0,
+        "description": "Turn and thread"
+      },
+      {
+        "__className__": "Operation",
+        "id": 161,
+        "jobId": 55,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 8,
+        "unitRunMinutes": 1.0,
+        "description": "Break edges"
+      },
+      {
+        "__className__": "Operation",
+        "id": 162,
+        "jobId": 55,
+        "sequence": 30,
+        "workCenterId": 28,
+        "setupMinutes": 8,
+        "unitRunMinutes": 1.0,
+        "description": "Thread gauge"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 48,
+      "shopId": 6,
+      "code": "J-1046",
+      "title": "Drive shaft",
+      "customer": "Voss Equipment",
+      "quantity": 30,
+      "dueAt": "2026-10-26T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 1,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 141,
+        "jobId": 48,
+        "sequence": 10,
+        "workCenterId": 25,
+        "setupMinutes": 60,
+        "unitRunMinutes": 12.0,
+        "description": "Turn journals"
+      },
+      {
+        "__className__": "Operation",
+        "id": 142,
+        "jobId": 48,
+        "sequence": 20,
+        "workCenterId": 28,
+        "setupMinutes": 12,
+        "unitRunMinutes": 4.0,
+        "description": "Runout check"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 46,
+      "shopId": 6,
+      "code": "J-1044",
+      "title": "Gearbox cover",
+      "customer": "Calder Drive",
+      "quantity": 60,
+      "dueAt": "2026-10-27T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 1,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 134,
+        "jobId": 46,
+        "sequence": 10,
+        "workCenterId": 23,
+        "setupMinutes": 75,
+        "unitRunMinutes": 11.0,
+        "description": "Rough and finish"
+      },
+      {
+        "__className__": "Operation",
+        "id": 135,
+        "jobId": 46,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 5,
+        "unitRunMinutes": 1.0,
+        "description": "Break edges"
+      },
+      {
+        "__className__": "Operation",
+        "id": 136,
+        "jobId": 46,
+        "sequence": 30,
+        "workCenterId": 29,
+        "setupMinutes": 30,
+        "unitRunMinutes": 4.0,
+        "description": "Prime and topcoat"
+      },
+      {
+        "__className__": "Operation",
+        "id": 137,
+        "jobId": 46,
+        "sequence": 40,
+        "workCenterId": 27,
+        "setupMinutes": 15,
+        "unitRunMinutes": 3.0,
+        "description": "Fit breather"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 51,
+      "shopId": 6,
+      "code": "J-1049",
+      "title": "Piston rod",
+      "customer": "Voss Equipment",
+      "quantity": 80,
+      "dueAt": "2026-10-29T16:00:00.000Z",
+      "releaseAt": "2026-10-19T23:00:00.000Z",
+      "priority": 1,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 149,
+        "jobId": 51,
+        "sequence": 10,
+        "workCenterId": 25,
+        "setupMinutes": 50,
+        "unitRunMinutes": 6.0,
+        "description": "Turn and polish"
+      },
+      {
+        "__className__": "Operation",
+        "id": 150,
+        "jobId": 51,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 8,
+        "unitRunMinutes": 1.0,
+        "description": "Chamfer"
+      },
+      {
+        "__className__": "Operation",
+        "id": 151,
+        "jobId": 51,
+        "sequence": 30,
+        "workCenterId": 28,
+        "setupMinutes": 10,
+        "unitRunMinutes": 2.0,
+        "description": "Hardness and finish"
+      }
+    ]
+  },
+  {
+    "__className__": "JobBundle",
+    "job": {
+      "__className__": "Job",
+      "id": 54,
+      "shopId": 6,
+      "code": "J-1052",
+      "title": "Sensor mount",
+      "customer": "Alder Controls",
+      "quantity": 300,
+      "dueAt": "2026-10-30T16:00:00.000Z",
+      "releaseAt": "2026-10-20T23:00:00.000Z",
+      "priority": 1,
+      "notes": ""
+    },
+    "operations": [
+      {
+        "__className__": "Operation",
+        "id": 157,
+        "jobId": 54,
+        "sequence": 10,
+        "workCenterId": 23,
+        "setupMinutes": 45,
+        "unitRunMinutes": 2.0,
+        "description": "Mill profile"
+      },
+      {
+        "__className__": "Operation",
+        "id": 158,
+        "jobId": 54,
+        "sequence": 20,
+        "workCenterId": 26,
+        "setupMinutes": 10,
+        "unitRunMinutes": 1.0,
+        "description": "Tumble"
+      },
+      {
+        "__className__": "Operation",
+        "id": 159,
+        "jobId": 54,
+        "sequence": 30,
+        "workCenterId": 28,
+        "setupMinutes": 8,
+        "unitRunMinutes": 1.0,
+        "description": "Sample check"
+      }
+    ]
+  }
+]

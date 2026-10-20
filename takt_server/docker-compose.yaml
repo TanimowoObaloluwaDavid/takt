@@ -1,0 +1,30 @@
+services:
+  # Development services
+  postgres:
+    image: ghcr.io/serverpod/postgres:16
+    ports:
+      - "8090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: takt
+      POSTGRES_PASSWORD: "ASx4xf0QNUSFFq5-ANSmq1lefYM5C_A5"
+    volumes:
+      - takt_data:/var/lib/postgresql/data
+
+
+  # Test services
+  postgres_test:
+    image: ghcr.io/serverpod/postgres:16
+    ports:
+      - "9090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: takt_test
+      POSTGRES_PASSWORD: "pWXpuJ9XNHsYBm0EPL8tTwL8xXt3cnaH"
+    volumes:
+      - takt_test_data:/var/lib/postgresql/data
+
+
+volumes:
+  takt_data:
+  takt_test_data:

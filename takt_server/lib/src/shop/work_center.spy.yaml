@@ -1,0 +1,16 @@
+### A group of identical parallel machines that can perform an operation.
+class: WorkCenter
+table: work_center
+fields:
+  ### Owning shop.
+  shopId: int
+  ### Human name, e.g. "CNC Mill 2".
+  name: String
+  ### Short code shown on the schedule, e.g. "CNC-02".
+  code: String
+  ### Number of identical machines in this work center.
+  machines: int
+  ### Flat changeover time when the machine switches to a different job.
+  changeoverMinutes: int
+  ### Optional note about capability or crew.
+  notes: String

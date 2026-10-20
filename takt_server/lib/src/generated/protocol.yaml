@@ -1,0 +1,17 @@
+job:
+  - list:
+  - save:
+  - remove:
+schedule:
+  - solve:
+  - whatIf:
+  - history:
+shop:
+  - create:
+  - fetch:
+  - rename:
+  - loadDemo:
+workCenter:
+  - list:
+  - save:
+  - remove:

@@ -1,0 +1,22 @@
+### A customer order that must pass through a routing of operations.
+class: Job
+table: job
+fields:
+  ### Owning shop.
+  shopId: int
+  ### Shop-floor reference, e.g. "J-1042".
+  code: String
+  ### Short description of the work.
+  title: String
+  ### Customer name, used only for display.
+  customer: String
+  ### Units to produce.
+  quantity: int
+  ### Promised delivery time.
+  dueAt: DateTime
+  ### Material available / earliest start time.
+  releaseAt: DateTime
+  ### 1 = standard, 2 = high, 3 = critical. Weights tardiness.
+  priority: int
+  ### Free-text shop notes.
+  notes: String
