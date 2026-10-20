@@ -370,11 +370,13 @@ class TaktBanner extends StatelessWidget {
     required this.message,
     this.tone = Tone.oxide,
     this.onDismiss,
+    this.action,
   });
 
   final String message;
   final Tone tone;
   final VoidCallback? onDismiss;
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
@@ -395,6 +397,10 @@ class TaktBanner extends StatelessWidget {
               ),
             ),
           ),
+          if (action != null) ...[
+            const SizedBox(width: 10),
+            action!,
+          ],
           if (onDismiss != null)
             IconButton(
               onPressed: onDismiss,

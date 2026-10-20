@@ -1,0 +1,19 @@
+### A revocable browser session. The raw token is returned once to the
+### client; only its SHA-256 hash is stored here.
+class: UserSession
+table: user_session
+fields:
+  ### Account this session belongs to.
+  userId: int
+  ### SHA-256 hex digest of the raw session token.
+  tokenHash: String
+  ### When the session was issued.
+  createdAt: DateTime
+  ### Hard expiry. Sessions are not refreshed indefinitely.
+  expiresAt: DateTime
+  ### Last time the session was used to load the account.
+  lastSeenAt: DateTime
+indexes:
+  user_session_token_idx:
+    fields: tokenHash
+    unique: true

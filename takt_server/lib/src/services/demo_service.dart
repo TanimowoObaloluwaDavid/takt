@@ -1,6 +1,5 @@
 import 'package:serverpod/serverpod.dart';
 
-import '../access/access.dart';
 import '../generated/protocol.dart';
 
 /// Loads a realistic high-mix job shop so a new workspace is useful in one
@@ -21,9 +20,10 @@ class DemoService {
       limit: 1,
     );
     if (existing.isNotEmpty || existingCenters.isNotEmpty) {
-      throw WorkspaceException(
-        'This workspace already has data. Delete its jobs and work centers '
-        'before loading the sample.',
+      throw TaktException(
+        message:
+            'This workspace already has data. Delete its jobs and work centers '
+            'before loading the sample.',
       );
     }
 

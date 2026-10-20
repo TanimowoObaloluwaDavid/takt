@@ -1,0 +1,7 @@
+### A user-facing failure that the Flutter client can display verbatim.
+### Registered with the protocol so Serverpod serializes it as a 400 instead
+### of hiding the message behind a generic internal-server error.
+exception: TaktException
+fields:
+  ### Human-readable explanation safe to show in the UI.
+  message: String

@@ -12,9 +12,20 @@
 // ignore_for_file: unnecessary_type_check
 
 import 'package:serverpod_client/serverpod_client.dart' as _isc;
+import 'package:takt_client/src/protocol/auth/member_info.dart' as _iclqc65o;
+import 'package:takt_client/src/protocol/auth/workspace_access.dart'
+    as _imttog6f;
 import 'package:takt_client/src/protocol/shop/job_bundle.dart' as _iorcz7t1;
 import 'package:takt_client/src/protocol/shop/schedule_run.dart' as _i2i6r8ak;
 import 'package:takt_client/src/protocol/shop/work_center.dart' as _ikdu04kn;
+import 'auth/auth_result.dart' as _i2iwynut;
+import 'auth/auth_user.dart' as _irmjc2q5;
+import 'auth/member_info.dart' as _icrfkdlg;
+import 'auth/takt_exception.dart' as _irx8mk2s;
+import 'auth/takt_user.dart' as _i0j7pcbw;
+import 'auth/user_session.dart' as _i8i8bov3;
+import 'auth/workspace_access.dart' as _iz2xnhg6;
+import 'auth/workspace_member.dart' as _i4na5x1t;
 import 'shop/job.dart' as _it99zazm;
 import 'shop/job_bundle.dart' as _i7fechiz;
 import 'shop/job_diagnosis.dart' as _i0n93601;
@@ -26,6 +37,14 @@ import 'shop/shop.dart' as _i3jxgs3d;
 import 'shop/shop_diagnosis.dart' as _inb8e64e;
 import 'shop/what_if_result.dart' as _i15bz5nf;
 import 'shop/work_center.dart' as _i94r27we;
+export 'auth/auth_result.dart';
+export 'auth/auth_user.dart';
+export 'auth/member_info.dart';
+export 'auth/takt_exception.dart';
+export 'auth/takt_user.dart';
+export 'auth/user_session.dart';
+export 'auth/workspace_access.dart';
+export 'auth/workspace_member.dart';
 export 'shop/job.dart';
 export 'shop/job_bundle.dart';
 export 'shop/job_diagnosis.dart';
@@ -73,6 +92,30 @@ class Protocol extends _isc.SerializationManager {
       }
     }
 
+    if (t == _i2iwynut.AuthResult) {
+      return _i2iwynut.AuthResult.fromJson(data) as T;
+    }
+    if (t == _irmjc2q5.AuthUser) {
+      return _irmjc2q5.AuthUser.fromJson(data) as T;
+    }
+    if (t == _icrfkdlg.MemberInfo) {
+      return _icrfkdlg.MemberInfo.fromJson(data) as T;
+    }
+    if (t == _irx8mk2s.TaktException) {
+      return _irx8mk2s.TaktException.fromJson(data) as T;
+    }
+    if (t == _i0j7pcbw.TaktUser) {
+      return _i0j7pcbw.TaktUser.fromJson(data) as T;
+    }
+    if (t == _i8i8bov3.UserSession) {
+      return _i8i8bov3.UserSession.fromJson(data) as T;
+    }
+    if (t == _iz2xnhg6.WorkspaceAccess) {
+      return _iz2xnhg6.WorkspaceAccess.fromJson(data) as T;
+    }
+    if (t == _i4na5x1t.WorkspaceMember) {
+      return _i4na5x1t.WorkspaceMember.fromJson(data) as T;
+    }
     if (t == _it99zazm.Job) {
       return _it99zazm.Job.fromJson(data) as T;
     }
@@ -105,6 +148,33 @@ class Protocol extends _isc.SerializationManager {
     }
     if (t == _i94r27we.WorkCenter) {
       return _i94r27we.WorkCenter.fromJson(data) as T;
+    }
+    if (t == _isc.getType<_i2iwynut.AuthResult?>()) {
+      return (data != null ? _i2iwynut.AuthResult.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_irmjc2q5.AuthUser?>()) {
+      return (data != null ? _irmjc2q5.AuthUser.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_icrfkdlg.MemberInfo?>()) {
+      return (data != null ? _icrfkdlg.MemberInfo.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_irx8mk2s.TaktException?>()) {
+      return (data != null ? _irx8mk2s.TaktException.fromJson(data) : null)
+          as T;
+    }
+    if (t == _isc.getType<_i0j7pcbw.TaktUser?>()) {
+      return (data != null ? _i0j7pcbw.TaktUser.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_i8i8bov3.UserSession?>()) {
+      return (data != null ? _i8i8bov3.UserSession.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_iz2xnhg6.WorkspaceAccess?>()) {
+      return (data != null ? _iz2xnhg6.WorkspaceAccess.fromJson(data) : null)
+          as T;
+    }
+    if (t == _isc.getType<_i4na5x1t.WorkspaceMember?>()) {
+      return (data != null ? _i4na5x1t.WorkspaceMember.fromJson(data) : null)
+          as T;
     }
     if (t == _isc.getType<_it99zazm.Job?>()) {
       return (data != null ? _it99zazm.Job.fromJson(data) : null) as T;
@@ -140,6 +210,12 @@ class Protocol extends _isc.SerializationManager {
     }
     if (t == _isc.getType<_i94r27we.WorkCenter?>()) {
       return (data != null ? _i94r27we.WorkCenter.fromJson(data) : null) as T;
+    }
+    if (t == List<_iz2xnhg6.WorkspaceAccess>) {
+      return (data as List)
+              .map((e) => deserialize<_iz2xnhg6.WorkspaceAccess>(e))
+              .toList()
+          as T;
     }
     if (t == List<_inhubnpu.Operation>) {
       return (data as List)
@@ -190,11 +266,31 @@ class Protocol extends _isc.SerializationManager {
               .toList()
           as T;
     }
+    if (t == List<_imttog6f.WorkspaceAccess>) {
+      return (data as List)
+              .map((e) => deserialize<_imttog6f.WorkspaceAccess>(e))
+              .toList()
+          as T;
+    }
+    if (t == List<_iclqc65o.MemberInfo>) {
+      return (data as List)
+              .map((e) => deserialize<_iclqc65o.MemberInfo>(e))
+              .toList()
+          as T;
+    }
     return super.deserialize<T>(data, t);
   }
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
+      _i2iwynut.AuthResult => 'AuthResult',
+      _irmjc2q5.AuthUser => 'AuthUser',
+      _icrfkdlg.MemberInfo => 'MemberInfo',
+      _irx8mk2s.TaktException => 'TaktException',
+      _i0j7pcbw.TaktUser => 'TaktUser',
+      _i8i8bov3.UserSession => 'UserSession',
+      _iz2xnhg6.WorkspaceAccess => 'WorkspaceAccess',
+      _i4na5x1t.WorkspaceMember => 'WorkspaceMember',
       _it99zazm.Job => 'Job',
       _i7fechiz.JobBundle => 'JobBundle',
       _i0n93601.JobDiagnosis => 'JobDiagnosis',
@@ -220,6 +316,22 @@ class Protocol extends _isc.SerializationManager {
     }
 
     switch (data) {
+      case _i2iwynut.AuthResult():
+        return 'AuthResult';
+      case _irmjc2q5.AuthUser():
+        return 'AuthUser';
+      case _icrfkdlg.MemberInfo():
+        return 'MemberInfo';
+      case _irx8mk2s.TaktException():
+        return 'TaktException';
+      case _i0j7pcbw.TaktUser():
+        return 'TaktUser';
+      case _i8i8bov3.UserSession():
+        return 'UserSession';
+      case _iz2xnhg6.WorkspaceAccess():
+        return 'WorkspaceAccess';
+      case _i4na5x1t.WorkspaceMember():
+        return 'WorkspaceMember';
       case _it99zazm.Job():
         return 'Job';
       case _i7fechiz.JobBundle():
@@ -251,6 +363,30 @@ class Protocol extends _isc.SerializationManager {
     var dataClassName = data['className'];
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
+    }
+    if (dataClassName == 'AuthResult') {
+      return deserialize<_i2iwynut.AuthResult>(data['data']);
+    }
+    if (dataClassName == 'AuthUser') {
+      return deserialize<_irmjc2q5.AuthUser>(data['data']);
+    }
+    if (dataClassName == 'MemberInfo') {
+      return deserialize<_icrfkdlg.MemberInfo>(data['data']);
+    }
+    if (dataClassName == 'TaktException') {
+      return deserialize<_irx8mk2s.TaktException>(data['data']);
+    }
+    if (dataClassName == 'TaktUser') {
+      return deserialize<_i0j7pcbw.TaktUser>(data['data']);
+    }
+    if (dataClassName == 'UserSession') {
+      return deserialize<_i8i8bov3.UserSession>(data['data']);
+    }
+    if (dataClassName == 'WorkspaceAccess') {
+      return deserialize<_iz2xnhg6.WorkspaceAccess>(data['data']);
+    }
+    if (dataClassName == 'WorkspaceMember') {
+      return deserialize<_i4na5x1t.WorkspaceMember>(data['data']);
     }
     if (dataClassName == 'Job') {
       return deserialize<_it99zazm.Job>(data['data']);

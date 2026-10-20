@@ -13,7 +13,7 @@ class ShopEndpoint extends Endpoint {
   ) async {
     final trimmed = name.trim();
     if (trimmed.isEmpty) {
-      throw WorkspaceException('Give the shop a name.');
+      throw TaktException(message: 'Give the shop a name.');
     }
     final code = currency.trim().isEmpty
         ? 'USD'
@@ -34,7 +34,8 @@ class ShopEndpoint extends Endpoint {
   }
 
   Future<Shop> fetch(Session session, String accessKey) async {
-    return requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey);
+    return access.visibleShop;
   }
 
   Future<Shop> rename(
@@ -42,21 +43,22 @@ class ShopEndpoint extends Endpoint {
     String accessKey,
     String name,
   ) async {
-    final shop = await requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey, write: true);
+    final shop = access.shop;
     final trimmed = name.trim();
     if (trimmed.isEmpty) {
-      throw WorkspaceException('Give the shop a name.');
+      throw TaktException(message: 'Give the shop a name.');
     }
     shop.name = trimmed;
     await Shop.db.update(session, [shop]);
-    return shop;
+    return access.visibleShop;
   }
 
   /// Fills an empty workspace with a realistic sample shop. Returns the
   /// number of jobs loaded. Returning a value (rather than void) keeps the
   /// HTTP response well-defined for every client.
   Future<int> loadDemo(Session session, String accessKey) async {
-    final shop = await requireShop(session, accessKey);
-    return const DemoService().load(session, shop);
+    final access = await requireShop(session, accessKey, write: true);
+    return const DemoService().load(session, access.shop);
   }
 }

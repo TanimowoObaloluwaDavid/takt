@@ -111,7 +111,9 @@ class _BoardViewState extends State<BoardView> {
           icon: Icons.play_arrow_rounded,
           busy: state.solving,
           expand: !wide,
-          onPressed: state.hasJobs && !state.solving ? state.solve : null,
+          onPressed: state.canWrite && state.hasJobs && !state.solving
+              ? state.solve
+              : null,
         ),
         if (run != null) ...[
           const SizedBox(height: 7),
@@ -158,19 +160,21 @@ class _BoardViewState extends State<BoardView> {
             label: noCenters ? 'Load sample shop' : 'Add a job',
             icon: noCenters ? Icons.auto_awesome_motion_outlined : Icons.add,
             busy: state.loading,
-            onPressed: () {
-              if (noCenters) {
-                state.loadSample();
-              } else {
-                widget.onNavigate(2);
-              }
-            },
+            onPressed: state.canWrite
+                ? () {
+                    if (noCenters) {
+                      state.loadSample();
+                    } else {
+                      widget.onNavigate(2);
+                    }
+                  }
+                : null,
           )
         : TaktButton(
             label: 'Run the solver',
             icon: Icons.play_arrow_rounded,
             busy: state.solving,
-            onPressed: state.solve,
+            onPressed: state.canWrite ? state.solve : null,
           );
 
     return TaktPanel(

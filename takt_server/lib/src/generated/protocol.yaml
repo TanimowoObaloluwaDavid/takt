@@ -1,3 +1,9 @@
+auth:
+  - register:
+  - login:
+  - me:
+  - logout:
+  - changePassword:
 job:
   - list:
   - save:
@@ -15,3 +21,12 @@ workCenter:
   - list:
   - save:
   - remove:
+workspace:
+  - list:
+  - create:
+  - claim:
+  - access:
+  - members:
+  - invite:
+  - setRole:
+  - removeMember:

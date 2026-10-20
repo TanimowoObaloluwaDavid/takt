@@ -14,6 +14,10 @@
 import 'dart:async' as _ida;
 import 'package:http/http.dart' as _i85jenna;
 import 'package:serverpod_client/serverpod_client.dart' as _isc;
+import 'package:takt_client/src/protocol/auth/auth_result.dart' as _iq28ciw2;
+import 'package:takt_client/src/protocol/auth/member_info.dart' as _iclqc65o;
+import 'package:takt_client/src/protocol/auth/workspace_access.dart'
+    as _imttog6f;
 import 'package:takt_client/src/protocol/shop/job_bundle.dart' as _iorcz7t1;
 import 'package:takt_client/src/protocol/shop/schedule_run.dart' as _i2i6r8ak;
 import 'package:takt_client/src/protocol/shop/schedule_snapshot.dart'
@@ -22,6 +26,67 @@ import 'package:takt_client/src/protocol/shop/shop.dart' as _ikodhua5;
 import 'package:takt_client/src/protocol/shop/what_if_result.dart' as _i9zfk072;
 import 'package:takt_client/src/protocol/shop/work_center.dart' as _ikdu04kn;
 import 'protocol.dart' as _il2as5qe;
+
+/// {@category Endpoint}
+class EndpointAuth extends _isc.EndpointRef {
+  EndpointAuth(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'auth';
+
+  _ida.Future<_iq28ciw2.AuthResult> register(
+    String email,
+    String password,
+    String displayName,
+  ) => caller.callServerEndpoint<_iq28ciw2.AuthResult>(
+    'auth',
+    'register',
+    {
+      'email': email,
+      'password': password,
+      'displayName': displayName,
+    },
+  );
+
+  _ida.Future<_iq28ciw2.AuthResult> login(
+    String email,
+    String password,
+  ) => caller.callServerEndpoint<_iq28ciw2.AuthResult>(
+    'auth',
+    'login',
+    {
+      'email': email,
+      'password': password,
+    },
+  );
+
+  _ida.Future<_iq28ciw2.AuthResult> me(String token) =>
+      caller.callServerEndpoint<_iq28ciw2.AuthResult>(
+        'auth',
+        'me',
+        {'token': token},
+      );
+
+  _ida.Future<bool> logout(String token) => caller.callServerEndpoint<bool>(
+    'auth',
+    'logout',
+    {'token': token},
+  );
+
+  _ida.Future<bool> changePassword(
+    String token,
+    String currentPassword,
+    String newPassword,
+  ) => caller.callServerEndpoint<bool>(
+    'auth',
+    'changePassword',
+    {
+      'token': token,
+      'currentPassword': currentPassword,
+      'newPassword': newPassword,
+    },
+  );
+}
 
 /// {@category Endpoint}
 class EndpointJob extends _isc.EndpointRef {
@@ -194,6 +259,116 @@ class EndpointWorkCenter extends _isc.EndpointRef {
   );
 }
 
+/// {@category Endpoint}
+class EndpointWorkspace extends _isc.EndpointRef {
+  EndpointWorkspace(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'workspace';
+
+  _ida.Future<List<_imttog6f.WorkspaceAccess>> list(String token) =>
+      caller.callServerEndpoint<List<_imttog6f.WorkspaceAccess>>(
+        'workspace',
+        'list',
+        {'token': token},
+      );
+
+  _ida.Future<_imttog6f.WorkspaceAccess> create(
+    String token,
+    String name,
+    String currency,
+    bool withSample,
+  ) => caller.callServerEndpoint<_imttog6f.WorkspaceAccess>(
+    'workspace',
+    'create',
+    {
+      'token': token,
+      'name': name,
+      'currency': currency,
+      'withSample': withSample,
+    },
+  );
+
+  _ida.Future<_imttog6f.WorkspaceAccess> claim(
+    String token,
+    String accessKey,
+  ) => caller.callServerEndpoint<_imttog6f.WorkspaceAccess>(
+    'workspace',
+    'claim',
+    {
+      'token': token,
+      'accessKey': accessKey,
+    },
+  );
+
+  /// Resolves a scoped key without an account, so the client can show the
+  /// correct role for a shared key. It never echoes the key.
+  _ida.Future<_imttog6f.WorkspaceAccess> access(String accessKey) =>
+      caller.callServerEndpoint<_imttog6f.WorkspaceAccess>(
+        'workspace',
+        'access',
+        {'accessKey': accessKey},
+      );
+
+  _ida.Future<List<_iclqc65o.MemberInfo>> members(
+    String token,
+    int shopId,
+  ) => caller.callServerEndpoint<List<_iclqc65o.MemberInfo>>(
+    'workspace',
+    'members',
+    {
+      'token': token,
+      'shopId': shopId,
+    },
+  );
+
+  _ida.Future<_iclqc65o.MemberInfo> invite(
+    String token,
+    int shopId,
+    String email,
+    String role,
+  ) => caller.callServerEndpoint<_iclqc65o.MemberInfo>(
+    'workspace',
+    'invite',
+    {
+      'token': token,
+      'shopId': shopId,
+      'email': email,
+      'role': role,
+    },
+  );
+
+  _ida.Future<_iclqc65o.MemberInfo> setRole(
+    String token,
+    int shopId,
+    int userId,
+    String role,
+  ) => caller.callServerEndpoint<_iclqc65o.MemberInfo>(
+    'workspace',
+    'setRole',
+    {
+      'token': token,
+      'shopId': shopId,
+      'userId': userId,
+      'role': role,
+    },
+  );
+
+  _ida.Future<bool> removeMember(
+    String token,
+    int shopId,
+    int userId,
+  ) => caller.callServerEndpoint<bool>(
+    'workspace',
+    'removeMember',
+    {
+      'token': token,
+      'shopId': shopId,
+      'userId': userId,
+    },
+  );
+}
+
 class Client extends _isc.ServerpodClientShared {
   Client(
     String host, {
@@ -221,11 +396,15 @@ class Client extends _isc.ServerpodClientShared {
              disconnectStreamsOnLostInternetConnection,
          httpClientOverride: httpClientOverride,
        ) {
+    auth = EndpointAuth(this);
     job = EndpointJob(this);
     schedule = EndpointSchedule(this);
     shop = EndpointShop(this);
     workCenter = EndpointWorkCenter(this);
+    workspace = EndpointWorkspace(this);
   }
+
+  late final EndpointAuth auth;
 
   late final EndpointJob job;
 
@@ -235,12 +414,16 @@ class Client extends _isc.ServerpodClientShared {
 
   late final EndpointWorkCenter workCenter;
 
+  late final EndpointWorkspace workspace;
+
   @override
   Map<String, _isc.EndpointRef> get endpointRefLookup => {
+    'auth': auth,
     'job': job,
     'schedule': schedule,
     'shop': shop,
     'workCenter': workCenter,
+    'workspace': workspace,
   };
 
   @override

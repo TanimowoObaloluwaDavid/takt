@@ -119,6 +119,27 @@ class _AppShellState extends State<AppShell> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
+                const SizedBox(height: 7),
+                Row(
+                  children: [
+                    StatusChip(
+                      label: state.roleName,
+                      tone: _shellRoleTone(state.role),
+                      filled: true,
+                    ),
+                    if (state.isSignedIn) ...[
+                      const SizedBox(width: 7),
+                      Flexible(
+                        child: Text(
+                          state.user?.displayName ?? '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TaktType.small.copyWith(fontSize: 10),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
                 const SizedBox(height: 10),
                 _keyLine(state),
               ],
@@ -134,9 +155,11 @@ class _AppShellState extends State<AppShell> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Divider(height: 20),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
+                _accountBlock(state),
+                const SizedBox(height: 18),
                 Text(
-                  'TAKT / 0.1',
+                  'TAKT / 0.2',
                   style: TaktType.label.copyWith(
                     fontSize: 9,
                     color: TaktColors.faint,
@@ -160,14 +183,14 @@ class _AppShellState extends State<AppShell> {
       borderRadius: BorderRadius.circular(TaktRadius.tight),
       onTap: () => _copyKey(state),
       child: Tooltip(
-        message: 'Copy workspace key',
+        message: 'Copy ${state.isOwner ? 'full-access' : 'scoped'} key',
         child: Row(
           children: [
             const Icon(Icons.key_outlined, size: 12, color: TaktColors.faint),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
-                'Workspace key',
+                state.isOwner ? 'Full-access key' : '${state.roleName} key',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TaktType.mono.copyWith(
@@ -256,11 +279,12 @@ class _AppShellState extends State<AppShell> {
               ),
             ),
           ),
+          _accountButton(state),
           IconButton(
             onPressed: () => _copyKey(state),
             icon: const Icon(Icons.key_outlined, size: 17),
             color: TaktColors.muted,
-            tooltip: 'Copy workspace key',
+            tooltip: 'Copy ${state.isOwner ? 'full-access' : 'scoped'} key',
           ),
         ],
       ),
@@ -328,9 +352,124 @@ class _AppShellState extends State<AppShell> {
     );
   }
 
+  Widget _accountBlock(AppState state) {
+    final name = state.user?.displayName ?? 'Guest access';
+    final detail = state.user?.email ?? 'Workspace key only';
+    return Row(
+      children: [
+        Container(
+          width: 26,
+          height: 26,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: state.isSignedIn ? TaktColors.ink : TaktColors.paper,
+            border: Border.all(
+              color: state.isSignedIn ? TaktColors.ink : TaktColors.line,
+            ),
+            borderRadius: BorderRadius.circular(TaktRadius.tight),
+          ),
+          child: state.isSignedIn
+              ? Text(
+                  _initials(name),
+                  style: TaktType.mono.copyWith(
+                    fontSize: 8.5,
+                    color: TaktColors.surface,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              : const Icon(
+                  Icons.person_outline,
+                  size: 14,
+                  color: TaktColors.muted,
+                ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TaktType.bodyStrong.copyWith(fontSize: 11.5),
+              ),
+              Text(
+                detail,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TaktType.small.copyWith(fontSize: 9.5),
+              ),
+            ],
+          ),
+        ),
+        _accountButton(state),
+      ],
+    );
+  }
+
+  Widget _accountButton(AppState state) {
+    return PopupMenuButton<String>(
+      tooltip: 'Account',
+      onSelected: (value) => _accountAction(state, value),
+      position: PopupMenuPosition.under,
+      itemBuilder: (context) => [
+        if (state.isSignedIn)
+          const PopupMenuItem(
+            value: 'account',
+            child: Text('Account & people'),
+          ),
+        if (state.isSignedIn)
+          const PopupMenuItem(
+            value: 'switch',
+            child: Text('Switch workspace'),
+          ),
+        PopupMenuItem(
+          value: 'auth',
+          child: Text(
+            state.isSignedIn ? 'Sign out' : 'Sign in or create account',
+          ),
+        ),
+      ],
+      child: Padding(
+        padding: const EdgeInsets.all(6),
+        child: Icon(
+          Icons.more_horiz,
+          size: 16,
+          color: TaktColors.muted,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _accountAction(AppState state, String value) async {
+    switch (value) {
+      case 'account':
+        _go(3);
+      case 'switch':
+        await state.leaveWorkspace();
+      case 'auth':
+        await state.signOut();
+    }
+  }
+
+  String _initials(String name) {
+    final parts = name
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((part) => part.isNotEmpty)
+        .take(2)
+        .map((part) => part[0].toUpperCase())
+        .join();
+    return parts.isEmpty ? '?' : parts;
+  }
+
   Widget _bannerArea(AppState state, EdgeInsets padding) {
     final message = state.error ?? state.notice;
-    if (message == null) return const SizedBox.shrink();
+    final readOnly = !state.canWrite;
+    if (!state.offline && !readOnly && message == null) {
+      return const SizedBox.shrink();
+    }
 
     return Padding(
       padding: padding,
@@ -338,10 +477,46 @@ class _AppShellState extends State<AppShell> {
         alignment: Alignment.topCenter,
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1500),
-          child: TaktBanner(
-            message: message,
-            tone: state.error != null ? Tone.oxide : Tone.teal,
-            onDismiss: state.clearMessages,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (state.offline)
+                TaktBanner(
+                  message:
+                      'No network connection. The last loaded plan is still '
+                      'readable; reconnect to save or re-run.',
+                  tone: Tone.amber,
+                  action: TextButton(
+                    onPressed: () {
+                      state.retry();
+                    },
+                    child: Text(
+                      'RETRY',
+                      style: TaktType.mono.copyWith(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: TaktColors.amber,
+                      ),
+                    ),
+                  ),
+                ),
+              if (state.offline && (readOnly || message != null))
+                const SizedBox(height: 8),
+              if (readOnly)
+                const TaktBanner(
+                  message:
+                      'View-only access. You can inspect every board and '
+                      'schedule; edits and solves are disabled.',
+                  tone: Tone.amber,
+                ),
+              if (readOnly && message != null) const SizedBox(height: 8),
+              if (message != null)
+                TaktBanner(
+                  message: message,
+                  tone: state.error != null ? Tone.oxide : Tone.teal,
+                  onDismiss: state.clearMessages,
+                ),
+            ],
           ),
         ),
       ),
@@ -354,7 +529,7 @@ class _AppShellState extends State<AppShell> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Workspace key copied',
+          state.isOwner ? 'Full-access key copied' : 'Scoped key copied',
           style: TaktType.mono.copyWith(fontSize: 12),
         ),
         behavior: SnackBarBehavior.floating,
@@ -364,6 +539,12 @@ class _AppShellState extends State<AppShell> {
     );
   }
 }
+
+Tone _shellRoleTone(String role) => switch (role) {
+  'owner' => Tone.teal,
+  'viewer' => Tone.amber,
+  _ => Tone.neutral,
+};
 
 class _Destination {
   const _Destination(this.label, this.icon);

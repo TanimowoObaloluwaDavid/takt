@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:takt_client/takt_client.dart';
+import 'package:takt_flutter/screens/auth_screen.dart';
 import 'package:takt_flutter/screens/shell.dart';
+import 'package:takt_flutter/screens/workspace_picker_screen.dart';
 import 'package:takt_flutter/state/app_state.dart';
 import 'package:takt_flutter/theme/takt_theme.dart';
 
@@ -42,6 +44,19 @@ Future<void> _loadFonts() async {
   // Also register the plain families for any style that falls back.
   await load('SpaceGrotesk', 'SpaceGrotesk-Regular.ttf');
   await load('IBMPlexMono', 'IBMPlexMono-Regular.ttf');
+
+  // Material Icons live in the SDK, not the app bundle. Without this the
+  // golden images render every icon as a missing-glyph box.
+  final root = Platform.environment['FLUTTER_ROOT'] ?? r'C:\flutter';
+  final iconFile = File(
+    '$root/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf',
+  );
+  if (iconFile.existsSync()) {
+    final bytes = await iconFile.readAsBytes();
+    final loader = FontLoader('MaterialIcons')
+      ..addFont(Future.value(ByteData.sublistView(bytes)));
+    await loader.load();
+  }
 }
 
 T _read<T>(String name, T Function(Object? json) parse) {
@@ -50,25 +65,70 @@ T _read<T>(String name, T Function(Object? json) parse) {
 }
 
 AppState _state() {
+  final shopId = _shop.id ?? 6;
   final state = AppState(Client('http://127.0.0.1:9/'))
     ..shop = _shop
     ..workCenters = _centers
     ..bundles = _jobs
     ..snapshot = _snapshot
     ..history = _history
-    ..booting = false;
+    ..booting = false
+    ..user = AuthUser(
+      id: 1,
+      email: 'alex@harbor.test',
+      displayName: 'Alex Chen',
+      createdAt: DateTime(2026, 10, 1),
+    )
+    ..sessionToken = 'fixture-session-token'
+    ..workspaces = [
+      WorkspaceAccess(
+        shopId: shopId,
+        name: _shop.name,
+        currency: _shop.currency,
+        role: 'owner',
+        accessKey: _shop.accessKey,
+        createdAt: _shop.createdAt,
+      ),
+    ]
+    ..members = [
+      MemberInfo(
+        userId: 1,
+        email: 'alex@harbor.test',
+        displayName: 'Alex Chen',
+        role: 'owner',
+        accessKey: _shop.accessKey,
+        createdAt: DateTime(2026, 10, 1),
+      ),
+      MemberInfo(
+        userId: 2,
+        email: 'sam@harbor.test',
+        displayName: 'Sam Rivera',
+        role: 'editor',
+        accessKey: '4PCCF-QF6QC-3H82K-VGY8R',
+        createdAt: DateTime(2026, 10, 2),
+      ),
+      MemberInfo(
+        userId: 3,
+        email: 'mira@harbor.test',
+        displayName: 'Mira Patel',
+        role: 'viewer',
+        accessKey: '2VJ8M-7QK4D-9WX3A-5HNTB',
+        createdAt: DateTime(2026, 10, 3),
+      ),
+    ];
   return state;
 }
 
 Future<AppState> _pump(
   WidgetTester tester, {
   Size size = const Size(1440, 960),
+  String role = 'owner',
 }) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
 
-  final state = _state();
+  final state = _state()..role = role;
   addTearDown(state.dispose);
 
   await tester.pumpWidget(
@@ -85,10 +145,60 @@ Future<AppState> _pump(
 }
 
 Future<void> _golden(WidgetTester tester, String name) async {
-  await expectLater(
-    find.byType(AppShell),
-    matchesGoldenFile('goldens/$name.png'),
-  );
+  await _goldenOf(tester, find.byType(AppShell), name);
+}
+
+Future<void> _goldenOf(
+  WidgetTester tester,
+  Finder finder,
+  String name,
+) async {
+  await expectLater(finder, matchesGoldenFile('goldens/$name.png'));
+}
+
+Future<void> _pumpScreen(
+  WidgetTester tester,
+  Widget child, {
+  Size size = const Size(1440, 960),
+}) async {
+  tester.view.physicalSize = size;
+  tester.view.devicePixelRatio = 1;
+  addTearDown(tester.view.reset);
+
+  await tester.pumpWidget(MaterialApp(theme: taktTheme(), home: child));
+  await GoogleFonts.pendingFonts();
+  await tester.pumpAndSettle();
+}
+
+AppState _accountState() {
+  final state = AppState(Client('http://127.0.0.1:9/'))
+    ..booting = false
+    ..user = AuthUser(
+      id: 1,
+      email: 'alex@harbor.test',
+      displayName: 'Alex Chen',
+      createdAt: DateTime(2026, 10, 1),
+    )
+    ..sessionToken = 'fixture-session-token'
+    ..workspaces = [
+      WorkspaceAccess(
+        shopId: _shop.id ?? 6,
+        name: _shop.name,
+        currency: _shop.currency,
+        role: 'owner',
+        accessKey: _shop.accessKey,
+        createdAt: _shop.createdAt,
+      ),
+      WorkspaceAccess(
+        shopId: 12,
+        name: 'Calder Precision',
+        currency: 'USD',
+        role: 'viewer',
+        accessKey: '8KQ2M-4WX7P-6HNTB-3VJDA',
+        createdAt: DateTime(2026, 9, 18),
+      ),
+    ];
+  return state;
 }
 
 void main() {
@@ -156,5 +266,69 @@ void main() {
     await _pump(tester, size: const Size(390, 844));
     expect(tester.takeException(), isNull);
     await _golden(tester, 'board-phone');
+  });
+
+  testWidgets('viewer board is visibly read-only', (tester) async {
+    await _pump(tester, role: 'viewer');
+    expect(find.textContaining('View-only access'), findsOneWidget);
+    await _golden(tester, 'board-viewer');
+  });
+
+  testWidgets('job search narrows the visible list', (tester) async {
+    await _pump(tester);
+    await tester.tap(find.byIcon(Icons.list_alt_outlined));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, 'Meridian');
+    await tester.pumpAndSettle();
+    expect(find.text('J-1051'), findsOneWidget);
+    expect(find.text('J-1047'), findsNothing);
+  });
+
+  testWidgets('auth at desktop width', (tester) async {
+    final state = AppState(Client('http://127.0.0.1:9/'));
+    addTearDown(state.dispose);
+    await _pumpScreen(tester, AuthScreen(state: state));
+    expect(tester.takeException(), isNull);
+    await _goldenOf(tester, find.byType(AuthScreen), 'auth-wide');
+  });
+
+  testWidgets('auth at phone width', (tester) async {
+    final state = AppState(Client('http://127.0.0.1:9/'));
+    addTearDown(state.dispose);
+    await _pumpScreen(
+      tester,
+      AuthScreen(state: state),
+      size: const Size(390, 844),
+    );
+    expect(tester.takeException(), isNull);
+    await _goldenOf(tester, find.byType(AuthScreen), 'auth-phone');
+  });
+
+  testWidgets('workspace picker at desktop width', (tester) async {
+    final state = _accountState();
+    addTearDown(state.dispose);
+    await _pumpScreen(tester, WorkspacePickerScreen(state: state));
+    expect(tester.takeException(), isNull);
+    expect(find.text('Calder Precision'), findsOneWidget);
+    await _goldenOf(tester, find.byType(WorkspacePickerScreen), 'picker-wide');
+  });
+
+  testWidgets('offline banner keeps the plan readable and offers retry', (
+    tester,
+  ) async {
+    final state = await _pump(tester);
+    state.offline = true;
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: taktTheme(),
+        home: AppShell(state: state),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining('No network connection'), findsOneWidget);
+    expect(find.textContaining('last loaded plan'), findsOneWidget);
+    expect(find.text('RETRY'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

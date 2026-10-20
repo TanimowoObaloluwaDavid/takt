@@ -1,6 +1,5 @@
 import 'package:serverpod/serverpod.dart';
 
-import '../access/access.dart';
 import '../generated/protocol.dart';
 import '../solver/diagnosis.dart';
 import '../solver/solver.dart';
@@ -90,7 +89,7 @@ class PlannerService {
       }
     }
     if (target == null) {
-      throw WorkspaceException('That work center is not in this shop.');
+      throw TaktException(message: 'That work center is not in this shop.');
     }
 
     final baseline = _solver.solve(
@@ -150,7 +149,7 @@ class PlannerService {
     );
 
     if (centers.isEmpty) {
-      throw WorkspaceException('Add a work center before solving.');
+      throw TaktException(message: 'Add a work center before solving.');
     }
 
     final jobIds = jobs.map((j) => j.id).whereType<int>().toSet();
@@ -172,8 +171,8 @@ class PlannerService {
         .toList();
 
     if (schedulable.isEmpty) {
-      throw WorkspaceException(
-        'Add a job with at least one routing step before solving.',
+      throw TaktException(
+        message: 'Add a job with at least one routing step before solving.',
       );
     }
 

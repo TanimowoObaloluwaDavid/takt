@@ -1,0 +1,17 @@
+### A person with a Takt account. Passwords are stored only as Argon2id
+### hashes; this row never leaves the server with its password hash.
+class: TaktUser
+table: takt_user
+fields:
+  ### Normalized (lower-case) sign-in address.
+  email: String
+  ### Name shown in the team list.
+  displayName: String
+  ### Argon2id PHC hash. Never returned by an endpoint.
+  passwordHash: String
+  ### When the account was created.
+  createdAt: DateTime
+indexes:
+  takt_user_email_idx:
+    fields: email
+    unique: true

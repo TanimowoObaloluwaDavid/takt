@@ -14,15 +14,23 @@
 import 'package:serverpod/serverpod.dart' as _is;
 import 'package:takt_server/src/generated/shop/job_bundle.dart' as _i7tmw4ip;
 import 'package:takt_server/src/generated/shop/work_center.dart' as _i8sj0jqh;
+import '../endpoints/auth_endpoint.dart' as _iyggisn2;
 import '../endpoints/job_endpoint.dart' as _i928r2ar;
 import '../endpoints/schedule_endpoint.dart' as _iywcnzta;
 import '../endpoints/shop_endpoint.dart' as _i4fqeydl;
 import '../endpoints/work_center_endpoint.dart' as _iwd01vhf;
+import '../endpoints/workspace_endpoint.dart' as _i9dwb32i;
 
 class Endpoints extends _is.EndpointDispatch {
   @override
   void initializeEndpoints(_is.Server server) {
     var endpoints = <String, _is.Endpoint>{
+      'auth': _iyggisn2.AuthEndpoint()
+        ..initialize(
+          server,
+          'auth',
+          null,
+        ),
       'job': _i928r2ar.JobEndpoint()
         ..initialize(
           server,
@@ -47,7 +55,140 @@ class Endpoints extends _is.EndpointDispatch {
           'workCenter',
           null,
         ),
+      'workspace': _i9dwb32i.WorkspaceEndpoint()
+        ..initialize(
+          server,
+          'workspace',
+          null,
+        ),
     };
+    connectors['auth'] = _is.EndpointConnector(
+      name: 'auth',
+      endpoint: endpoints['auth']!,
+      methodConnectors: {
+        'register': _is.MethodConnector(
+          name: 'register',
+          params: {
+            'email': _is.ParameterDescription(
+              name: 'email',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'password': _is.ParameterDescription(
+              name: 'password',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'displayName': _is.ParameterDescription(
+              name: 'displayName',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['auth'] as _iyggisn2.AuthEndpoint).register(
+                session,
+                params['email'],
+                params['password'],
+                params['displayName'],
+              ),
+        ),
+        'login': _is.MethodConnector(
+          name: 'login',
+          params: {
+            'email': _is.ParameterDescription(
+              name: 'email',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'password': _is.ParameterDescription(
+              name: 'password',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['auth'] as _iyggisn2.AuthEndpoint).login(
+                session,
+                params['email'],
+                params['password'],
+              ),
+        ),
+        'me': _is.MethodConnector(
+          name: 'me',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['auth'] as _iyggisn2.AuthEndpoint).me(
+                session,
+                params['token'],
+              ),
+        ),
+        'logout': _is.MethodConnector(
+          name: 'logout',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['auth'] as _iyggisn2.AuthEndpoint).logout(
+                session,
+                params['token'],
+              ),
+        ),
+        'changePassword': _is.MethodConnector(
+          name: 'changePassword',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'currentPassword': _is.ParameterDescription(
+              name: 'currentPassword',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'newPassword': _is.ParameterDescription(
+              name: 'newPassword',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async =>
+                  (endpoints['auth'] as _iyggisn2.AuthEndpoint).changePassword(
+                    session,
+                    params['token'],
+                    params['currentPassword'],
+                    params['newPassword'],
+                  ),
+        ),
+      },
+    );
     connectors['job'] = _is.EndpointConnector(
       name: 'job',
       endpoint: endpoints['job']!,
@@ -366,6 +507,242 @@ class Endpoints extends _is.EndpointDispatch {
                         params['accessKey'],
                         params['id'],
                       ),
+        ),
+      },
+    );
+    connectors['workspace'] = _is.EndpointConnector(
+      name: 'workspace',
+      endpoint: endpoints['workspace']!,
+      methodConnectors: {
+        'list': _is.MethodConnector(
+          name: 'list',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async =>
+                  (endpoints['workspace'] as _i9dwb32i.WorkspaceEndpoint).list(
+                    session,
+                    params['token'],
+                  ),
+        ),
+        'create': _is.MethodConnector(
+          name: 'create',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'name': _is.ParameterDescription(
+              name: 'name',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'currency': _is.ParameterDescription(
+              name: 'currency',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'withSample': _is.ParameterDescription(
+              name: 'withSample',
+              type: _is.getType<bool>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['workspace'] as _i9dwb32i.WorkspaceEndpoint)
+                  .create(
+                    session,
+                    params['token'],
+                    params['name'],
+                    params['currency'],
+                    params['withSample'],
+                  ),
+        ),
+        'claim': _is.MethodConnector(
+          name: 'claim',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'accessKey': _is.ParameterDescription(
+              name: 'accessKey',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async =>
+                  (endpoints['workspace'] as _i9dwb32i.WorkspaceEndpoint).claim(
+                    session,
+                    params['token'],
+                    params['accessKey'],
+                  ),
+        ),
+        'access': _is.MethodConnector(
+          name: 'access',
+          params: {
+            'accessKey': _is.ParameterDescription(
+              name: 'accessKey',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['workspace'] as _i9dwb32i.WorkspaceEndpoint)
+                  .access(
+                    session,
+                    params['accessKey'],
+                  ),
+        ),
+        'members': _is.MethodConnector(
+          name: 'members',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'shopId': _is.ParameterDescription(
+              name: 'shopId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['workspace'] as _i9dwb32i.WorkspaceEndpoint)
+                  .members(
+                    session,
+                    params['token'],
+                    params['shopId'],
+                  ),
+        ),
+        'invite': _is.MethodConnector(
+          name: 'invite',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'shopId': _is.ParameterDescription(
+              name: 'shopId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'email': _is.ParameterDescription(
+              name: 'email',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'role': _is.ParameterDescription(
+              name: 'role',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['workspace'] as _i9dwb32i.WorkspaceEndpoint)
+                  .invite(
+                    session,
+                    params['token'],
+                    params['shopId'],
+                    params['email'],
+                    params['role'],
+                  ),
+        ),
+        'setRole': _is.MethodConnector(
+          name: 'setRole',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'shopId': _is.ParameterDescription(
+              name: 'shopId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'userId': _is.ParameterDescription(
+              name: 'userId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'role': _is.ParameterDescription(
+              name: 'role',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['workspace'] as _i9dwb32i.WorkspaceEndpoint)
+                  .setRole(
+                    session,
+                    params['token'],
+                    params['shopId'],
+                    params['userId'],
+                    params['role'],
+                  ),
+        ),
+        'removeMember': _is.MethodConnector(
+          name: 'removeMember',
+          params: {
+            'token': _is.ParameterDescription(
+              name: 'token',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'shopId': _is.ParameterDescription(
+              name: 'shopId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'userId': _is.ParameterDescription(
+              name: 'userId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _is.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['workspace'] as _i9dwb32i.WorkspaceEndpoint)
+                  .removeMember(
+                    session,
+                    params['token'],
+                    params['shopId'],
+                    params['userId'],
+                  ),
         ),
       },
     );

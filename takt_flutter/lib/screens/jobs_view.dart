@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:takt_client/takt_client.dart';
 
 import '../state/app_state.dart';
@@ -6,13 +7,45 @@ import '../theme/takt_theme.dart';
 import '../widgets/common.dart';
 import 'job_editor.dart';
 
-class JobsView extends StatelessWidget {
+class JobsView extends StatefulWidget {
   const JobsView({super.key, required this.state});
 
   final AppState state;
 
   @override
+  State<JobsView> createState() => _JobsViewState();
+}
+
+class _JobsViewState extends State<JobsView> {
+  AppState get state => widget.state;
+
+  final _search = TextEditingController();
+  String _query = '';
+  _JobStatus? _filter;
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
+
+  List<JobBundle> get _visible {
+    final query = _query.trim().toLowerCase();
+    return state.bundles.where((bundle) {
+      if (_filter != null && _statusFor(bundle.job.id) != _filter) {
+        return false;
+      }
+      if (query.isEmpty) return true;
+      final haystack =
+          '${bundle.job.code} ${bundle.job.title} ${bundle.job.customer}'
+              .toLowerCase();
+      return haystack.contains(query);
+    }).toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final visible = _visible;
     return LayoutBuilder(
       builder: (context, constraints) {
         final wide = constraints.maxWidth >= 900;
@@ -45,24 +78,71 @@ class JobsView extends StatelessWidget {
                         const SizedBox(height: 6),
                         Text(
                           state.hasJobs
-                              ? 'Tap a job to edit its routing. Changing a '
-                                    'routing invalidates the current schedule.'
+                              ? state.canWrite
+                                    ? 'Tap a job to edit its routing. Changing '
+                                          'a routing invalidates the current '
+                                          'schedule.'
+                                    : 'Inspect the queue and statuses. Editing '
+                                          'requires an editor key.'
                               : 'Nothing scheduled yet.',
                           style: TaktType.small,
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  TaktButton(
-                    label: 'New job',
-                    icon: Icons.add,
-                    onPressed: state.hasWorkCenters
-                        ? () => showJobEditor(context, state)
-                        : null,
-                  ),
+                  if (wide) ...[
+                    if (state.hasJobs) ...[
+                      TaktButton(
+                        label: 'Copy CSV',
+                        icon: Icons.table_chart_outlined,
+                        tone: ButtonTone.secondary,
+                        onPressed: visible.isEmpty
+                            ? null
+                            : () => _copyCsv(context, visible),
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                    if (state.canWrite)
+                      TaktButton(
+                        label: 'New job',
+                        icon: Icons.add,
+                        onPressed: state.hasWorkCenters
+                            ? () => showJobEditor(context, state)
+                            : null,
+                      ),
+                  ],
                 ],
               ),
+              if (!wide && (state.hasJobs || state.canWrite)) ...[
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    if (state.hasJobs)
+                      Expanded(
+                        child: TaktButton(
+                          label: 'Copy CSV',
+                          icon: Icons.table_chart_outlined,
+                          tone: ButtonTone.secondary,
+                          onPressed: visible.isEmpty
+                              ? null
+                              : () => _copyCsv(context, visible),
+                        ),
+                      ),
+                    if (state.hasJobs && state.canWrite)
+                      const SizedBox(width: 8),
+                    if (state.canWrite)
+                      Expanded(
+                        child: TaktButton(
+                          label: 'New job',
+                          icon: Icons.add,
+                          onPressed: state.hasWorkCenters
+                              ? () => showJobEditor(context, state)
+                              : null,
+                        ),
+                      ),
+                  ],
+                ),
+              ],
               if (!state.hasWorkCenters) ...[
                 const SizedBox(height: 14),
                 const TaktBanner(
@@ -72,25 +152,61 @@ class JobsView extends StatelessWidget {
                   tone: Tone.amber,
                 ),
               ],
+              if (state.hasJobs) ...[
+                const SizedBox(height: 14),
+                if (wide)
+                  Row(
+                    children: [
+                      Expanded(child: _searchField()),
+                      const SizedBox(width: 12),
+                      _filterBar(),
+                    ],
+                  )
+                else ...[
+                  _searchField(),
+                  const SizedBox(height: 9),
+                  _filterBar(),
+                ],
+              ],
               const SizedBox(height: 18),
               Expanded(
                 child: state.bundles.isEmpty
                     ? _empty(context)
+                    : visible.isEmpty
+                    ? _noMatches()
                     : TaktPanel(
                         padding: EdgeInsets.zero,
                         child: ListView.separated(
                           padding: EdgeInsets.zero,
-                          itemCount: state.bundles.length,
+                          itemCount: visible.length,
                           separatorBuilder: (_, _) => const Divider(height: 1),
                           itemBuilder: (context, index) {
-                            final bundle = state.bundles[index];
+                            final bundle = visible[index];
                             return _JobRow(
                               bundle: bundle,
                               centers: state.workCenters,
                               status: _statusFor(bundle.job.id),
                               wide: wide,
-                              onTap: () =>
-                                  showJobEditor(context, state, bundle: bundle),
+                              onTap: () {
+                                if (state.canWrite) {
+                                  showJobEditor(context, state, bundle: bundle);
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'View-only access. Ask the owner for '
+                                        'an editor key to change this job.',
+                                        style: TaktType.mono.copyWith(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: TaktColors.graphite,
+                                      width: 360,
+                                    ),
+                                  );
+                                }
+                              },
                             );
                           },
                         ),
@@ -102,6 +218,135 @@ class JobsView extends StatelessWidget {
       },
     );
   }
+
+  Widget _searchField() {
+    return TextField(
+      controller: _search,
+      style: TaktType.body.copyWith(fontSize: 13),
+      decoration: taktInput(hint: 'Search code, title, or customer').copyWith(
+        isDense: true,
+        prefixIcon: const Icon(
+          Icons.search,
+          size: 17,
+          color: TaktColors.faint,
+        ),
+        suffixIcon: _query.isEmpty
+            ? null
+            : IconButton(
+                onPressed: () {
+                  _search.clear();
+                  setState(() => _query = '');
+                },
+                icon: const Icon(Icons.close, size: 15),
+                color: TaktColors.muted,
+                tooltip: 'Clear search',
+                visualDensity: VisualDensity.compact,
+              ),
+      ),
+      onChanged: (value) => setState(() => _query = value),
+    );
+  }
+
+  Widget _filterBar() {
+    return Wrap(
+      spacing: 6,
+      runSpacing: 6,
+      children: [
+        _filterChip('All', null),
+        _filterChip('Late', _JobStatus.late),
+        _filterChip('On time', _JobStatus.onTime),
+        _filterChip('Not run', _JobStatus.unscheduled),
+      ],
+    );
+  }
+
+  Widget _filterChip(String label, _JobStatus? value) {
+    final active = _filter == value;
+    return InkWell(
+      onTap: () => setState(() => _filter = value),
+      borderRadius: BorderRadius.circular(TaktRadius.tight),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        decoration: BoxDecoration(
+          color: active ? TaktColors.ink : Colors.transparent,
+          border: Border.all(
+            color: active ? TaktColors.ink : TaktColors.line,
+          ),
+          borderRadius: BorderRadius.circular(TaktRadius.tight),
+        ),
+        child: Text(
+          label,
+          style: TaktType.mono.copyWith(
+            fontSize: 9.5,
+            fontWeight: active ? FontWeight.w600 : FontWeight.w400,
+            color: active ? TaktColors.surface : TaktColors.inkSoft,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _noMatches() {
+    return EmptyState(
+      title: 'No jobs match.',
+      body:
+          'Nothing in this workspace matches the current search and status '
+          'filter.',
+      action: TaktButton(
+        label: 'Clear filters',
+        tone: ButtonTone.ghost,
+        onPressed: () {
+          _search.clear();
+          setState(() {
+            _query = '';
+            _filter = null;
+          });
+        },
+      ),
+    );
+  }
+
+  Future<void> _copyCsv(
+    BuildContext context,
+    List<JobBundle> bundles,
+  ) async {
+    final rows = <String>[
+      'Code,Title,Customer,Quantity,Due,Status',
+      for (final bundle in bundles)
+        [
+          bundle.job.code,
+          bundle.job.title,
+          bundle.job.customer,
+          bundle.job.quantity.toString(),
+          formatDateLong(bundle.job.dueAt),
+          _statusLabel(_statusFor(bundle.job.id)),
+        ].map(_csvCell).join(','),
+    ];
+    await Clipboard.setData(ClipboardData(text: rows.join('\r\n')));
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '${bundles.length} jobs copied as CSV',
+          style: TaktType.mono.copyWith(fontSize: 12),
+        ),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: TaktColors.graphite,
+        width: 320,
+      ),
+    );
+  }
+
+  String _csvCell(String value) {
+    final escaped = value.replaceAll('"', '""');
+    return escaped.contains(RegExp(r'[",\r\n]')) ? '"$escaped"' : escaped;
+  }
+
+  String _statusLabel(_JobStatus status) => switch (status) {
+    _JobStatus.late => 'late',
+    _JobStatus.onTime => 'on time',
+    _JobStatus.unscheduled => 'not run',
+  };
 
   _JobStatus _statusFor(int? jobId) {
     if (jobId == null) return _JobStatus.unscheduled;
@@ -118,31 +363,36 @@ class JobsView extends StatelessWidget {
   Widget _empty(BuildContext context) {
     return EmptyState(
       title: 'No jobs on the floor.',
-      body: state.hasWorkCenters
+      body: !state.canWrite
+          ? 'There are no jobs in this workspace. An editor or owner can add '
+                'the first job and its routing.'
+          : state.hasWorkCenters
           ? 'Enter a job and its routing, or load the sample shop to see the '
                 'solver working on realistic data.'
           : 'Define at least one work center, then enter a job with a routing.',
-      action: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TaktButton(
-            label: 'New job',
-            icon: Icons.add,
-            onPressed: state.hasWorkCenters
-                ? () => showJobEditor(context, state)
-                : null,
-          ),
-          const SizedBox(width: 10),
-          TaktButton(
-            label: 'Load sample shop',
-            tone: ButtonTone.secondary,
-            busy: state.loading,
-            onPressed: state.hasJobs || state.hasWorkCenters
-                ? null
-                : state.loadSample,
-          ),
-        ],
-      ),
+      action: state.canWrite
+          ? Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TaktButton(
+                  label: 'New job',
+                  icon: Icons.add,
+                  onPressed: state.hasWorkCenters
+                      ? () => showJobEditor(context, state)
+                      : null,
+                ),
+                const SizedBox(width: 10),
+                TaktButton(
+                  label: 'Load sample shop',
+                  tone: ButtonTone.secondary,
+                  busy: state.loading,
+                  onPressed: state.hasJobs || state.hasWorkCenters
+                      ? null
+                      : state.loadSample,
+                ),
+              ],
+            )
+          : null,
     );
   }
 }

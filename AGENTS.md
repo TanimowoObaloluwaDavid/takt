@@ -2,6 +2,57 @@
 
 This project is a Flutter app (frontend) backed by a Serverpod server (backend). Always build the app's backend with Serverpod.
 
+## The app
+
+**Takt** is an explainable finite-capacity scheduler for high-mix, low-volume
+job shops: “The scheduler that tells you why you’re late.”
+
+- `takt_flutter/` — Flutter client. Auth front door, workspace picker, shell,
+  diagnosis board, Gantt schedule, searchable jobs, setup/people.
+- `takt_server/` — Serverpod API. Pure solver/diagnosis in `lib/src/solver/`,
+  persistence in `lib/src/services/`, auth in `lib/src/auth/`, scoped-key role
+  enforcement in `lib/src/access/`.
+- `takt_client/` — generated protocol client. Never edit by hand.
+
+### Auth and authority
+
+- Email/password accounts with Argon2id; sessions are 30-day hashed bearer
+  tokens. Workspace keys are separate scoped credentials for data calls.
+- Roles are `owner`, `editor`, `viewer`, enforced server-side in
+  `requireShop(..., write: true)`.
+- The shop's original `Shop.accessKey` is the owner's full-access key. It
+  bypasses roles. Member keys live in `WorkspaceMember.accessKey` and carry
+  their role. Never return the owner key to a member: use `visibleShop`.
+- Accounts are optional for guest viewing. Accounts are required to manage
+  workspaces and people.
+- Table migration for `TaktUser`, `UserSession`, and `WorkspaceMember`:
+  `migrations/20261020101119388/` (already applied to development).
+- User-facing validation/permission/auth failures are serialized
+  `TaktException`s (HTTP 400), not generic 500s.
+
+### Scheduler
+
+Jobs are operation chains on work centers with parallel identical machines and
+flat changeovers. The solver runs EDD/priority/SPT/slack list-scheduling rules,
+then seeded simulated annealing over dispatch order. The same seed and inputs
+produce an identical schedule. Diagnosis attributes late minutes to queue time
+at the binding work center; what-if reuses the latest seed and changes only
+extra machines.
+
+### Verification
+
+```bash
+cd takt_server && dart analyze --fatal-infos && dart format --output=none --set-exit-if-changed lib test && dart test
+cd ../takt_flutter && flutter analyze --no-pub && dart format --output=none --set-exit-if-changed lib test && flutter test --no-pub
+flutter build web --release
+```
+
+Goldens are fixture-driven in `takt_flutter/test/golden_test.dart`. Load
+Material Icons from the Flutter SDK in the harness; otherwise icons render as
+missing-glyph boxes. See `docs/VERIFICATION.md` for the current record.
+
+---
+
 The user starts the server and Flutter app with `serverpod start`. There is no need to check if the server is running: make the changes and call the `serverpod` MCP tools as needed. If the server is not running, an informative error message will be received from the MCP server. Then STOP and ask the user to start it. NEVER start the server yourself. The Flutter app is started along with it, or can be launched from the MCP tool `spawn_flutter_app`.
 
 While running, `serverpod start` watches for file changes to run incremental code generation and hot reload both the server and the Flutter app.
@@ -46,4 +97,6 @@ If the user asks you to test the app:
 
 The app is launched from `takt_flutter/lib/driver.dart`, which starts the Flutter driver extension with text entry emulation turned off so the app stays usable by hand. To let the driver type, set `enableTextEntryEmulation: true` there and `hot_restart` the app.
 
-IMPORTANT: After building the first version of the app, update this AGENTS.md file with information about the app we're building. KEEP the info about the MCP server and the checklist. Remove this paragraph.
+The app opens on the auth screen. Guest workspace keys still open a shop
+directly; signed-in users get the workspace picker, switcher, People panel, and
+role-aware controls.

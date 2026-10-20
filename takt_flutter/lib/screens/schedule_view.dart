@@ -121,7 +121,9 @@ class ScheduleView extends StatelessWidget {
         label: 'Run solver',
         icon: Icons.play_arrow_rounded,
         busy: state.solving,
-        onPressed: state.hasJobs && !state.solving ? state.solve : null,
+        onPressed: state.canWrite && state.hasJobs && !state.solving
+            ? state.solve
+            : null,
       ),
     );
   }

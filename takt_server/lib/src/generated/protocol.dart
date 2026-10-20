@@ -13,9 +13,20 @@
 
 import 'package:serverpod/protocol.dart' as _isp;
 import 'package:serverpod/serverpod.dart' as _is;
+import 'package:takt_server/src/generated/auth/member_info.dart' as _i5rbsqm5;
+import 'package:takt_server/src/generated/auth/workspace_access.dart'
+    as _ijb0w01z;
 import 'package:takt_server/src/generated/shop/job_bundle.dart' as _i7tmw4ip;
 import 'package:takt_server/src/generated/shop/schedule_run.dart' as _ixxyfogz;
 import 'package:takt_server/src/generated/shop/work_center.dart' as _i8sj0jqh;
+import 'auth/auth_result.dart' as _i2iwynut;
+import 'auth/auth_user.dart' as _irmjc2q5;
+import 'auth/member_info.dart' as _icrfkdlg;
+import 'auth/takt_exception.dart' as _irx8mk2s;
+import 'auth/takt_user.dart' as _i0j7pcbw;
+import 'auth/user_session.dart' as _i8i8bov3;
+import 'auth/workspace_access.dart' as _iz2xnhg6;
+import 'auth/workspace_member.dart' as _i4na5x1t;
 import 'shop/job.dart' as _it99zazm;
 import 'shop/job_bundle.dart' as _i7fechiz;
 import 'shop/job_diagnosis.dart' as _i0n93601;
@@ -27,6 +38,14 @@ import 'shop/shop.dart' as _i3jxgs3d;
 import 'shop/shop_diagnosis.dart' as _inb8e64e;
 import 'shop/what_if_result.dart' as _i15bz5nf;
 import 'shop/work_center.dart' as _i94r27we;
+export 'auth/auth_result.dart';
+export 'auth/auth_user.dart';
+export 'auth/member_info.dart';
+export 'auth/takt_exception.dart';
+export 'auth/takt_user.dart';
+export 'auth/user_session.dart';
+export 'auth/workspace_access.dart';
+export 'auth/workspace_member.dart';
 export 'shop/job.dart';
 export 'shop/job_bundle.dart';
 export 'shop/job_diagnosis.dart';
@@ -390,6 +409,124 @@ class Protocol extends _is.DatabaseSerializationManager {
       managed: true,
     ),
     _isp.TableDefinition(
+      name: 'takt_user',
+      dartName: 'TaktUser',
+      schema: 'public',
+      module: 'takt',
+      columns: [
+        _isp.ColumnDefinition(
+          name: 'id',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'serial',
+        ),
+        _isp.ColumnDefinition(
+          name: 'email',
+          columnType: _isp.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _isp.ColumnDefinition(
+          name: 'displayName',
+          columnType: _isp.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _isp.ColumnDefinition(
+          name: 'passwordHash',
+          columnType: _isp.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _isp.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _isp.IndexDefinition(
+          indexName: 'takt_user_email_idx',
+          tableSpace: null,
+          elements: [
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'email',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _isp.TableDefinition(
+      name: 'user_session',
+      dartName: 'UserSession',
+      schema: 'public',
+      module: 'takt',
+      columns: [
+        _isp.ColumnDefinition(
+          name: 'id',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'serial',
+        ),
+        _isp.ColumnDefinition(
+          name: 'userId',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _isp.ColumnDefinition(
+          name: 'tokenHash',
+          columnType: _isp.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _isp.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _isp.ColumnDefinition(
+          name: 'expiresAt',
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _isp.ColumnDefinition(
+          name: 'lastSeenAt',
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _isp.IndexDefinition(
+          indexName: 'user_session_token_idx',
+          tableSpace: null,
+          elements: [
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'tokenHash',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _isp.TableDefinition(
       name: 'work_center',
       dartName: 'WorkCenter',
       schema: 'public',
@@ -443,6 +580,85 @@ class Protocol extends _is.DatabaseSerializationManager {
       indexes: [],
       managed: true,
     ),
+    _isp.TableDefinition(
+      name: 'workspace_member',
+      dartName: 'WorkspaceMember',
+      schema: 'public',
+      module: 'takt',
+      columns: [
+        _isp.ColumnDefinition(
+          name: 'id',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'serial',
+        ),
+        _isp.ColumnDefinition(
+          name: 'shopId',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _isp.ColumnDefinition(
+          name: 'userId',
+          columnType: _isp.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _isp.ColumnDefinition(
+          name: 'role',
+          columnType: _isp.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _isp.ColumnDefinition(
+          name: 'accessKey',
+          columnType: _isp.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _isp.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _isp.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _isp.IndexDefinition(
+          indexName: 'workspace_member_shop_user_idx',
+          tableSpace: null,
+          elements: [
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'shopId',
+            ),
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'userId',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+        _isp.IndexDefinition(
+          indexName: 'workspace_member_key_idx',
+          tableSpace: null,
+          elements: [
+            _isp.IndexElementDefinition(
+              type: _isp.IndexElementDefinitionType.column,
+              definition: 'accessKey',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
     ..._isp.Protocol.targetTableDefinitions,
   ];
 
@@ -473,6 +689,30 @@ class Protocol extends _is.DatabaseSerializationManager {
       }
     }
 
+    if (t == _i2iwynut.AuthResult) {
+      return _i2iwynut.AuthResult.fromJson(data) as T;
+    }
+    if (t == _irmjc2q5.AuthUser) {
+      return _irmjc2q5.AuthUser.fromJson(data) as T;
+    }
+    if (t == _icrfkdlg.MemberInfo) {
+      return _icrfkdlg.MemberInfo.fromJson(data) as T;
+    }
+    if (t == _irx8mk2s.TaktException) {
+      return _irx8mk2s.TaktException.fromJson(data) as T;
+    }
+    if (t == _i0j7pcbw.TaktUser) {
+      return _i0j7pcbw.TaktUser.fromJson(data) as T;
+    }
+    if (t == _i8i8bov3.UserSession) {
+      return _i8i8bov3.UserSession.fromJson(data) as T;
+    }
+    if (t == _iz2xnhg6.WorkspaceAccess) {
+      return _iz2xnhg6.WorkspaceAccess.fromJson(data) as T;
+    }
+    if (t == _i4na5x1t.WorkspaceMember) {
+      return _i4na5x1t.WorkspaceMember.fromJson(data) as T;
+    }
     if (t == _it99zazm.Job) {
       return _it99zazm.Job.fromJson(data) as T;
     }
@@ -505,6 +745,33 @@ class Protocol extends _is.DatabaseSerializationManager {
     }
     if (t == _i94r27we.WorkCenter) {
       return _i94r27we.WorkCenter.fromJson(data) as T;
+    }
+    if (t == _is.getType<_i2iwynut.AuthResult?>()) {
+      return (data != null ? _i2iwynut.AuthResult.fromJson(data) : null) as T;
+    }
+    if (t == _is.getType<_irmjc2q5.AuthUser?>()) {
+      return (data != null ? _irmjc2q5.AuthUser.fromJson(data) : null) as T;
+    }
+    if (t == _is.getType<_icrfkdlg.MemberInfo?>()) {
+      return (data != null ? _icrfkdlg.MemberInfo.fromJson(data) : null) as T;
+    }
+    if (t == _is.getType<_irx8mk2s.TaktException?>()) {
+      return (data != null ? _irx8mk2s.TaktException.fromJson(data) : null)
+          as T;
+    }
+    if (t == _is.getType<_i0j7pcbw.TaktUser?>()) {
+      return (data != null ? _i0j7pcbw.TaktUser.fromJson(data) : null) as T;
+    }
+    if (t == _is.getType<_i8i8bov3.UserSession?>()) {
+      return (data != null ? _i8i8bov3.UserSession.fromJson(data) : null) as T;
+    }
+    if (t == _is.getType<_iz2xnhg6.WorkspaceAccess?>()) {
+      return (data != null ? _iz2xnhg6.WorkspaceAccess.fromJson(data) : null)
+          as T;
+    }
+    if (t == _is.getType<_i4na5x1t.WorkspaceMember?>()) {
+      return (data != null ? _i4na5x1t.WorkspaceMember.fromJson(data) : null)
+          as T;
     }
     if (t == _is.getType<_it99zazm.Job?>()) {
       return (data != null ? _it99zazm.Job.fromJson(data) : null) as T;
@@ -540,6 +807,12 @@ class Protocol extends _is.DatabaseSerializationManager {
     }
     if (t == _is.getType<_i94r27we.WorkCenter?>()) {
       return (data != null ? _i94r27we.WorkCenter.fromJson(data) : null) as T;
+    }
+    if (t == List<_iz2xnhg6.WorkspaceAccess>) {
+      return (data as List)
+              .map((e) => deserialize<_iz2xnhg6.WorkspaceAccess>(e))
+              .toList()
+          as T;
     }
     if (t == List<_inhubnpu.Operation>) {
       return (data as List)
@@ -590,6 +863,18 @@ class Protocol extends _is.DatabaseSerializationManager {
               .toList()
           as T;
     }
+    if (t == List<_ijb0w01z.WorkspaceAccess>) {
+      return (data as List)
+              .map((e) => deserialize<_ijb0w01z.WorkspaceAccess>(e))
+              .toList()
+          as T;
+    }
+    if (t == List<_i5rbsqm5.MemberInfo>) {
+      return (data as List)
+              .map((e) => deserialize<_i5rbsqm5.MemberInfo>(e))
+              .toList()
+          as T;
+    }
     try {
       return _isp.Protocol().deserialize<T>(data, t);
     } on _is.DeserializationTypeNotFoundException catch (_) {}
@@ -598,6 +883,14 @@ class Protocol extends _is.DatabaseSerializationManager {
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
+      _i2iwynut.AuthResult => 'AuthResult',
+      _irmjc2q5.AuthUser => 'AuthUser',
+      _icrfkdlg.MemberInfo => 'MemberInfo',
+      _irx8mk2s.TaktException => 'TaktException',
+      _i0j7pcbw.TaktUser => 'TaktUser',
+      _i8i8bov3.UserSession => 'UserSession',
+      _iz2xnhg6.WorkspaceAccess => 'WorkspaceAccess',
+      _i4na5x1t.WorkspaceMember => 'WorkspaceMember',
       _it99zazm.Job => 'Job',
       _i7fechiz.JobBundle => 'JobBundle',
       _i0n93601.JobDiagnosis => 'JobDiagnosis',
@@ -623,6 +916,22 @@ class Protocol extends _is.DatabaseSerializationManager {
     }
 
     switch (data) {
+      case _i2iwynut.AuthResult():
+        return 'AuthResult';
+      case _irmjc2q5.AuthUser():
+        return 'AuthUser';
+      case _icrfkdlg.MemberInfo():
+        return 'MemberInfo';
+      case _irx8mk2s.TaktException():
+        return 'TaktException';
+      case _i0j7pcbw.TaktUser():
+        return 'TaktUser';
+      case _i8i8bov3.UserSession():
+        return 'UserSession';
+      case _iz2xnhg6.WorkspaceAccess():
+        return 'WorkspaceAccess';
+      case _i4na5x1t.WorkspaceMember():
+        return 'WorkspaceMember';
       case _it99zazm.Job():
         return 'Job';
       case _i7fechiz.JobBundle():
@@ -658,6 +967,30 @@ class Protocol extends _is.DatabaseSerializationManager {
     var dataClassName = data['className'];
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
+    }
+    if (dataClassName == 'AuthResult') {
+      return deserialize<_i2iwynut.AuthResult>(data['data']);
+    }
+    if (dataClassName == 'AuthUser') {
+      return deserialize<_irmjc2q5.AuthUser>(data['data']);
+    }
+    if (dataClassName == 'MemberInfo') {
+      return deserialize<_icrfkdlg.MemberInfo>(data['data']);
+    }
+    if (dataClassName == 'TaktException') {
+      return deserialize<_irx8mk2s.TaktException>(data['data']);
+    }
+    if (dataClassName == 'TaktUser') {
+      return deserialize<_i0j7pcbw.TaktUser>(data['data']);
+    }
+    if (dataClassName == 'UserSession') {
+      return deserialize<_i8i8bov3.UserSession>(data['data']);
+    }
+    if (dataClassName == 'WorkspaceAccess') {
+      return deserialize<_iz2xnhg6.WorkspaceAccess>(data['data']);
+    }
+    if (dataClassName == 'WorkspaceMember') {
+      return deserialize<_i4na5x1t.WorkspaceMember>(data['data']);
     }
     if (dataClassName == 'Job') {
       return deserialize<_it99zazm.Job>(data['data']);
@@ -708,6 +1041,12 @@ class Protocol extends _is.DatabaseSerializationManager {
       }
     }
     switch (t) {
+      case _i0j7pcbw.TaktUser:
+        return _i0j7pcbw.TaktUser.t;
+      case _i8i8bov3.UserSession:
+        return _i8i8bov3.UserSession.t;
+      case _i4na5x1t.WorkspaceMember:
+        return _i4na5x1t.WorkspaceMember.t;
       case _it99zazm.Job:
         return _it99zazm.Job.t;
       case _inhubnpu.Operation:

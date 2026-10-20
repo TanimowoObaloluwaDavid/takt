@@ -1,0 +1,16 @@
+### One workspace as seen by one signed-in person, including the scoped
+### key that browser should use for this workspace and its role.
+class: WorkspaceAccess
+fields:
+  ### Workspace id.
+  shopId: int
+  ### Workspace name.
+  name: String
+  ### Display currency.
+  currency: String
+  ### owner, editor, or viewer.
+  role: String
+  ### Scoped bearer key. The owner receives the full-access shop key.
+  accessKey: String
+  ### When the workspace was created.
+  createdAt: DateTime

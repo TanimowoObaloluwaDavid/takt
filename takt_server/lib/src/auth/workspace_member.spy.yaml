@@ -1,0 +1,23 @@
+### Links an account to a workspace with a role and a scoped access key.
+### The key is a bearer credential, so it is stored as a secret and only
+### shown to the owner (who can already access everything).
+class: WorkspaceMember
+table: workspace_member
+fields:
+  ### Workspace this membership belongs to.
+  shopId: int
+  ### Account that owns the membership.
+  userId: int
+  ### owner, editor, or viewer. Validated server-side.
+  role: String
+  ### Scoped workspace key. The owner's membership reuses the shop key.
+  accessKey: String
+  ### When the person joined.
+  createdAt: DateTime
+indexes:
+  workspace_member_shop_user_idx:
+    fields: shopId, userId
+    unique: true
+  workspace_member_key_idx:
+    fields: accessKey
+    unique: true

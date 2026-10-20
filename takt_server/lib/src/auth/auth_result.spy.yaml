@@ -1,0 +1,11 @@
+### The result of creating an account or signing in. The session token is
+### for account/workspace management; each workspace carries its own scoped
+### key for data calls.
+class: AuthResult
+fields:
+  ### Raw session token. Store it only on the client, never log it.
+  token: String
+  ### Public account details.
+  user: AuthUser
+  ### Every workspace this account can open.
+  workspaces: List<WorkspaceAccess>

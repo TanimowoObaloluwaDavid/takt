@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'package:takt_client/takt_client.dart';
 
-import 'screens/entry_screen.dart';
+import 'screens/auth_screen.dart';
 import 'screens/shell.dart';
+import 'screens/workspace_picker_screen.dart';
 import 'state/app_state.dart';
 import 'theme/takt_theme.dart';
 import 'widgets/common.dart';
@@ -50,8 +51,11 @@ class _TaktAppState extends State<TaktApp> {
         listenable: _state,
         builder: (context, _) {
           if (_state.booting) return const _BootScreen();
-          if (!_state.hasWorkspace) return EntryScreen(state: _state);
-          return AppShell(state: _state);
+          if (_state.hasWorkspace) return AppShell(state: _state);
+          if (_state.isSignedIn) {
+            return WorkspacePickerScreen(state: _state);
+          }
+          return AuthScreen(state: _state);
         },
       ),
     );
@@ -79,7 +83,7 @@ class _BootScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Text('OPENING WORKSPACE', style: TaktType.label),
+            Text('CHECKING ACCESS', style: TaktType.label),
           ],
         ),
       ),

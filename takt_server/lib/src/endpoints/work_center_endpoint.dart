@@ -5,7 +5,8 @@ import '../generated/protocol.dart';
 
 class WorkCenterEndpoint extends Endpoint {
   Future<List<WorkCenter>> list(Session session, String accessKey) async {
-    final shop = await requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey);
+    final shop = access.shop;
     return WorkCenter.db.find(
       session,
       where: (t) => t.shopId.equals(shop.id!),
@@ -18,10 +19,11 @@ class WorkCenterEndpoint extends Endpoint {
     String accessKey,
     WorkCenter center,
   ) async {
-    final shop = await requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey, write: true);
+    final shop = access.shop;
     final name = center.name.trim();
     if (name.isEmpty) {
-      throw WorkspaceException('Give the work center a name.');
+      throw TaktException(message: 'Give the work center a name.');
     }
 
     final code = center.code.trim().isEmpty
@@ -56,7 +58,7 @@ class WorkCenterEndpoint extends Endpoint {
       limit: 1,
     );
     if (rows.isEmpty || rows.first.shopId != shop.id) {
-      throw WorkspaceException('That work center is not in this shop.');
+      throw TaktException(message: 'That work center is not in this shop.');
     }
 
     final row = rows.first;
@@ -70,14 +72,15 @@ class WorkCenterEndpoint extends Endpoint {
   }
 
   Future<bool> remove(Session session, String accessKey, int id) async {
-    final shop = await requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey, write: true);
+    final shop = access.shop;
     final rows = await WorkCenter.db.find(
       session,
       where: (t) => t.id.equals(id),
       limit: 1,
     );
     if (rows.isEmpty || rows.first.shopId != shop.id) {
-      throw WorkspaceException('That work center is not in this shop.');
+      throw TaktException(message: 'That work center is not in this shop.');
     }
 
     final used = await Operation.db.find(
@@ -86,8 +89,9 @@ class WorkCenterEndpoint extends Endpoint {
       limit: 1,
     );
     if (used.isNotEmpty) {
-      throw WorkspaceException(
-        'That work center is used in a routing. Remove those steps first.',
+      throw TaktException(
+        message:
+            'That work center is used in a routing. Remove those steps first.',
       );
     }
 

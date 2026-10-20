@@ -5,7 +5,8 @@ import '../generated/protocol.dart';
 
 class JobEndpoint extends Endpoint {
   Future<List<JobBundle>> list(Session session, String accessKey) async {
-    final shop = await requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey);
+    final shop = access.shop;
     final jobs = await Job.db.find(
       session,
       where: (t) => t.shopId.equals(shop.id!),
@@ -39,18 +40,37 @@ class JobEndpoint extends Endpoint {
     String accessKey,
     JobBundle bundle,
   ) async {
-    final shop = await requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey, write: true);
+    final shop = access.shop;
     final incoming = bundle.job;
     final code = incoming.code.trim();
 
     if (code.isEmpty) {
-      throw WorkspaceException('Every job needs a reference.');
+      throw TaktException(message: 'Every job needs a reference.');
     }
     if (incoming.quantity < 1) {
-      throw WorkspaceException('Quantity must be at least 1.');
+      throw TaktException(message: 'Quantity must be at least 1.');
     }
     if (bundle.operations.isEmpty) {
-      throw WorkspaceException('A job needs at least one routing step.');
+      throw TaktException(message: 'A job needs at least one routing step.');
+    }
+
+    // Validate the whole routing before touching the job. A cross-shop work
+    // center id must never enter a routing, and a bad step must not leave an
+    // edited job with its old operations already deleted.
+    final centers = await WorkCenter.db.find(
+      session,
+      where: (t) => t.shopId.equals(shop.id!),
+    );
+    final centerIds = {
+      for (final center in centers) center.id,
+    }.whereType<int>().toSet();
+    for (final op in bundle.operations) {
+      if (op.workCenterId <= 0 || !centerIds.contains(op.workCenterId)) {
+        throw TaktException(
+          message: 'Pick a work center from this shop for every step.',
+        );
+      }
     }
 
     Job saved;
@@ -76,7 +96,7 @@ class JobEndpoint extends Endpoint {
         limit: 1,
       );
       if (rows.isEmpty || rows.first.shopId != shop.id) {
-        throw WorkspaceException('That job is not in this shop.');
+        throw TaktException(message: 'That job is not in this shop.');
       }
       saved = rows.first;
       saved.code = code;
@@ -97,9 +117,6 @@ class JobEndpoint extends Endpoint {
     var sequence = 10;
     final rows = <Operation>[];
     for (final op in bundle.operations) {
-      if (op.workCenterId <= 0) {
-        throw WorkspaceException('Pick a work center for every step.');
-      }
       rows.add(
         Operation(
           jobId: saved.id!,
@@ -119,14 +136,15 @@ class JobEndpoint extends Endpoint {
   }
 
   Future<bool> remove(Session session, String accessKey, int id) async {
-    final shop = await requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey, write: true);
+    final shop = access.shop;
     final rows = await Job.db.find(
       session,
       where: (t) => t.id.equals(id),
       limit: 1,
     );
     if (rows.isEmpty || rows.first.shopId != shop.id) {
-      throw WorkspaceException('That job is not in this shop.');
+      throw TaktException(message: 'That job is not in this shop.');
     }
     await Operation.db.deleteWhere(session, where: (t) => t.jobId.equals(id));
     await Job.db.deleteWhere(session, where: (t) => t.id.equals(id));

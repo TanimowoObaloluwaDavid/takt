@@ -1,0 +1,16 @@
+### A person in a workspace. The scoped key is exposed only to the owner,
+### who can already grant or revoke access.
+class: MemberInfo
+fields:
+  ### Account id.
+  userId: int
+  ### Sign-in address.
+  email: String
+  ### Display name.
+  displayName: String
+  ### owner, editor, or viewer.
+  role: String
+  ### Scoped key for this member; blank when the caller is not the owner.
+  accessKey: String
+  ### When the person joined.
+  createdAt: DateTime

@@ -1,0 +1,11 @@
+### Public account information. Never includes a password hash.
+class: AuthUser
+fields:
+  ### Account id.
+  id: int
+  ### Normalized email.
+  email: String
+  ### Display name.
+  displayName: String
+  ### When the account was created.
+  createdAt: DateTime

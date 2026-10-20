@@ -13,8 +13,8 @@ class ScheduleEndpoint extends Endpoint {
     String accessKey, {
     int? seed,
   }) async {
-    final shop = await requireShop(session, accessKey);
-    return _planner.solve(session, shop, seed: seed);
+    final access = await requireShop(session, accessKey, write: true);
+    return _planner.solve(session, access.shop, seed: seed);
   }
 
   /// Re-solves with extra machines on one work center and reports the delta.
@@ -25,17 +25,17 @@ class ScheduleEndpoint extends Endpoint {
     required int workCenterId,
     required int extraMachines,
   }) async {
-    final shop = await requireShop(session, accessKey);
+    final access = await requireShop(session, accessKey);
     return _planner.whatIf(
       session,
-      shop,
+      access.shop,
       workCenterId: workCenterId,
       extraMachines: extraMachines,
     );
   }
 
   Future<List<ScheduleRun>> history(Session session, String accessKey) async {
-    final shop = await requireShop(session, accessKey);
-    return _planner.history(session, shop);
+    final access = await requireShop(session, accessKey);
+    return _planner.history(session, access.shop);
   }
 }
