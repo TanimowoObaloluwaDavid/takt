@@ -172,12 +172,12 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1041',
     title: 'Hydraulic manifold block',
-    customer: 'Northline Hydraulics',
+    customer: 'Eko Marine Services',
     quantity: 12,
     dueDays: 3,
     releaseDays: 0,
     priority: 3,
-    notes: 'Customer inspection required before dispatch.',
+    notes: 'Customer inspection before dispatch to Apapa.',
     routing: [
       _Step(
         center: 'CNC-01',
@@ -202,7 +202,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1042',
     title: 'Pump housing',
-    customer: 'Northline Hydraulics',
+    customer: 'Eko Marine Services',
     quantity: 60,
     dueDays: 2,
     releaseDays: 0,
@@ -237,7 +237,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1043',
     title: 'Valve body',
-    customer: 'Meridian Fluid',
+    customer: 'Lekki Fluid Systems',
     quantity: 25,
     dueDays: 2,
     releaseDays: 0,
@@ -266,7 +266,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1044',
     title: 'Gearbox cover',
-    customer: 'Calder Drive',
+    customer: 'Kano Agro Machines',
     quantity: 60,
     dueDays: 7,
     releaseDays: 0,
@@ -301,7 +301,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1045',
     title: 'Bracket set',
-    customer: 'Calder Drive',
+    customer: 'Kano Agro Machines',
     quantity: 300,
     dueDays: 1,
     releaseDays: 0,
@@ -330,7 +330,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1046',
     title: 'Drive shaft',
-    customer: 'Voss Equipment',
+    customer: 'Nnewi Auto Components',
     quantity: 30,
     dueDays: 6,
     releaseDays: 0,
@@ -353,12 +353,12 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1047',
     title: 'Manifold block (rush)',
-    customer: 'Northline Hydraulics',
+    customer: 'Eko Marine Services',
     quantity: 6,
     dueDays: 1,
     releaseDays: 0,
     priority: 3,
-    notes: 'Air-freight slots already booked.',
+    notes: 'Export slot to Douala already booked.',
     routing: [
       _Step(
         center: 'CNC-01',
@@ -383,12 +383,12 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1048',
     title: 'Housing weldment',
-    customer: 'Voss Equipment',
+    customer: 'Nnewi Auto Components',
     quantity: 30,
     dueDays: 3,
     releaseDays: 2,
     priority: 1,
-    notes: 'Castings land on day two.',
+    notes: 'Castings arrive from Nnewi on day two.',
     routing: [
       _Step(
         center: 'CNC-02',
@@ -413,7 +413,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1049',
     title: 'Piston rod',
-    customer: 'Voss Equipment',
+    customer: 'Nnewi Auto Components',
     quantity: 80,
     dueDays: 9,
     releaseDays: 0,
@@ -442,7 +442,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1050',
     title: 'Control arm',
-    customer: 'Meridian Fluid',
+    customer: 'Lekki Fluid Systems',
     quantity: 45,
     dueDays: 3,
     releaseDays: 0,
@@ -471,11 +471,12 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1051',
     title: 'Adapter plate',
-    customer: 'Meridian Fluid',
+    customer: 'Lekki Fluid Systems',
     quantity: 240,
     dueDays: 1,
     releaseDays: 0,
     priority: 1,
+    notes: 'Adapter plate for a marine pump skid at Apapa.',
     routing: [
       _Step(
         center: 'CNC-02',
@@ -494,7 +495,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1052',
     title: 'Sensor mount',
-    customer: 'Alder Controls',
+    customer: 'Aba Plastics & Packaging',
     quantity: 300,
     dueDays: 10,
     releaseDays: 1,
@@ -523,7 +524,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1053',
     title: 'Valve stem',
-    customer: 'Alder Controls',
+    customer: 'Aba Plastics & Packaging',
     quantity: 150,
     dueDays: 4,
     releaseDays: 0,
@@ -552,7 +553,7 @@ const _demoJobs = <_DemoJob>[
   _DemoJob(
     code: 'J-1054',
     title: 'End cap',
-    customer: 'Alder Controls',
+    customer: 'Aba Plastics & Packaging',
     quantity: 160,
     dueDays: 1,
     releaseDays: 0,

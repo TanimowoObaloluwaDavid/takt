@@ -9,6 +9,11 @@ language and tells you which capacity decision would recover the lost time.
 
 Built with **Flutter**, **Serverpod**, and an embedded PostgreSQL database.
 
+**The demo in one sentence:** Ajao Precision Works in Lagos is 26h 40m late on
+J-1051; Takt traces every minute to the CNC-02 queue and shows that one extra
+machine clears the job and recovers 1,600 minutes — before the owner spends the
+capex.
+
 | Account front door | Choose a workspace |
 | --- | --- |
 | ![Takt sign-in and registration](docs/assets/auth-wide.png) | ![Takt workspace picker](docs/assets/picker-wide.png) |
@@ -19,14 +24,33 @@ Built with **Flutter**, **Serverpod**, and an embedded PostgreSQL database.
 
 ## Demo film
 
-The 90-second product film is in [`video/takt-demo.mp4`](video/takt-demo.mp4),
-with a synthesized voiceover and an SRT caption track
+The 96-second product film is in [`video/takt-demo.mp4`](video/takt-demo.mp4),
+with a Nigerian English voiceover (`en-NG-AbeoNeural`) and an SRT caption track
 ([`video/takt-demo.srt`](video/takt-demo.srt)). Captioned and vertical cuts are
 also ready: [`takt-demo-captioned.mp4`](video/takt-demo-captioned.mp4) (16:9,
 burned-in captions) and [`takt-demo-vertical.mp4`](video/takt-demo-vertical.mp4)
-(9:16, burned-in captions). The full narration and scene-by-scene proof are in
-[`video/TRANSCRIPT.md`](video/TRANSCRIPT.md). Every screen in the film is a real
-capture of the running app.
+(9:16, burned-in captions). The story is set in the fictional Lagos job shop
+**Ajao Precision Works** (NGN). The full narration and scene-by-scene proof are
+in [`video/TRANSCRIPT.md`](video/TRANSCRIPT.md). Every screen is rendered from
+the real Flutter widgets against captured demo data.
+
+## Try the demo
+
+The checked-in film and screenshots use a fictional Lagos job shop, **Ajao
+Precision Works**: seven work centers, fourteen jobs, and customers such as Eko
+Marine, Lekki Fluid, Kano Agro, Nnewi Auto, and Aba Plastics. The data is seeded
+through the same endpoints and solver as any other workspace.
+
+| Role | Sign in | What to look for |
+| --- | --- | --- |
+| **Owner** | `tunde@ajaoprecision.ng` / `Lagos.2026!` | Full board, setup, People, and the full-access key |
+| **Editor** | `ngozi@ajaoprecision.ng` / `Lagos.2026!` | Can run the solver and edit; cannot manage people |
+| **Viewer** | `amina@lekkifluid.ng` / `Lagos.2026!` | Read-only board and what-if; the API rejects writes |
+
+Guest viewer key: `ZQCVW-J2AQ6-2TD6H-5PRF9` — read-only, no account needed.
+
+These are demo credentials for the local development database, not production
+secrets. Rotate or remove them before exposing the app publicly.
 
 ## Why Takt
 
@@ -44,6 +68,31 @@ what-if run.
 The product is deliberately not another full ERP or MES. Its wedge is the
 capacity decision and its explanation, not quoting, purchasing, accounting, or
 shop-floor data collection.
+
+## Why Nigeria
+
+Takt's first design-partner market is Nigeria's make-to-order manufacturing
+belt: precision machining and fabrication around Lagos and Ogun, auto
+components in Nnewi, plastics and light manufacturing in Aba, and agro-equipment
+in Kano. These shops share the constraints Takt is built for: high mix, low
+volume, imported machines and tooling, tight delivery promises, and a single
+work center that can quietly become the queue for the whole shop.
+
+That context shapes the product, not just the demo:
+
+- **NGN and a Lagos demo workspace**, instead of a US placeholder.
+- **Diagnosis before optimization**, because a small shop needs an answer this
+  week, not a 3–6 month ERP rollout.
+- **What-if before capex**, because another CNC machine is an FX-denominated
+  decision and the owner needs evidence that the bottleneck is real.
+- **Scoped viewer keys**, because the person promising the date is often not the
+  person allowed to change the schedule.
+
+This is a pilot thesis, not traction. Ajao Precision Works and its people and
+customers are fictional. Takt has no Nigerian customer, logo, testimonial,
+revenue, or market-size claim. The next step is a design-partner pilot with 3–5
+shops in one cluster, starting with one bottleneck and one week of real jobs,
+and measuring whether the diagnosis changes a capacity decision.
 
 ## What is implemented
 
@@ -213,9 +262,10 @@ at `http://localhost:8080`.
 5. Sign in as that person, or open the scoped key as a guest, to see role-aware
    controls and server-enforced permissions.
 
-For the local development database created during the build, the original
-demo workspace can be opened with the guest key supplied in the hand-off
-message. Keys are bearer credentials: do not post them publicly.
+The checked-in demo workspace is described in [Try the demo](#try-the-demo).
+The sample loader creates the same Nigerian customer mix in any new workspace.
+Keys are bearer credentials: keep them inside the private repo and do not post
+them publicly.
 
 ## Tests and checks
 
@@ -289,6 +339,6 @@ and design rationale.
 
 ## License and provenance
 
-This is a hackathon project. The sample shop is fictional. No customer data is
-included. Third-party product names are used for comparison only; see
-`PRODUCT.md` for source links.
+This is a hackathon project. Ajao Precision Works and the sample shop are
+fictional. No customer data is included. Third-party product names are used for
+comparison only; see `PRODUCT.md` for source links.

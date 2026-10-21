@@ -51,9 +51,9 @@ DARK_GRID = (38, 36, 33, 255)
 DARK_TEXT = (244, 241, 232, 255)
 DARK_MUTED = (166, 160, 150, 255)
 
-VOICE = "en-US-AndrewNeural"
-RATE = "+0%"
-PITCH = "-2Hz"
+VOICE = "en-NG-AbeoNeural"
+RATE = "+12%"
+PITCH = "-1Hz"
 
 
 # --------------------------------------------------------------------------
@@ -261,7 +261,7 @@ def scene_title(s) -> Image.Image:
     d.text((100, 664), "why you're late.", font=tag2, fill=TEAL_BRIGHT)
 
     d.line([(100, 770), (820, 770)], fill=DARK_RULE, width=1)
-    draw_tracked(d, (100, 796), "REAL CAPACITY / REAL CONSTRAINTS / REAL EVIDENCE", font("mono", 15), DARK_MUTED, 1.2)
+    draw_tracked(d, (100, 796), "AJAO PRECISION WORKS / LAGOS, NIGERIA / NGN", font("mono", 15), DARK_MUTED, 1.2)
 
     # Product-shaped diagram: a miniature schedule with one late bar crossing its due line.
     px, py, pw, ph = 1010, 196, 810, 700
@@ -367,7 +367,7 @@ def scene_board(s) -> Image.Image:
 
     draw_tracked(d, (100, 868), "NAMED. MEASURED. CAUSAL.", font("mono_semi", 15), TEAL, 2.2)
 
-    draw_tracked(d, (800, 138), "DIAGNOSIS BOARD / HARBOR MACHINE CO.", font("mono", 13), INK_FAINT, 1.4)
+    draw_tracked(d, (800, 138), "DIAGNOSIS BOARD / AJAO PRECISION WORKS / LAGOS", font("mono", 13), INK_FAINT, 1.4)
     paste_screenshot(img, "board-wide.png", 800, 174, 1020, 680)
     return img
 
@@ -512,19 +512,19 @@ def scene_outro(s) -> Image.Image:
     d = ImageDraw.Draw(img)
     draw_chrome(img, d, 8, dark=True, top_right="FLUTTER × SERVERPOD / 2026")
 
-    draw_tracked(d, (100, 198), "WHY LATE? TAKT KNOWS.", font("mono_semi", 16), TEAL_BRIGHT, 2.4)
+    draw_tracked(d, (100, 198), "WHY LATE? TAKT KNOWS. / LAGOS, NIGERIA", font("mono_semi", 16), TEAL_BRIGHT, 2.4)
     ink_top(d, (86, 236), "Takt", font("bold", 196), DARK_TEXT)
     d.text((100, 486), "The scheduler that tells you", font=font("semi", 48), fill=DARK_TEXT)
     d.text((100, 548), "why you're late.", font=font("semi", 48), fill=TEAL_BRIGHT)
 
-    chips = ["FLUTTER", "SERVERPOD", "POSTGRES", "30 + 17 TESTS"]
+    chips = ["FLUTTER", "SERVERPOD", "POSTGRES", "LAGOS / NGN", "30 + 17 TESTS"]
     x = 100
     for text in chips:
         w, h = chip(d, (x, 648), text, font("mono_semi", 13), DARK_TEXT, (44, 42, 38, 255), (74, 69, 61, 255), 14, 9, 7)
         x += w + 10
 
     d.line([(100, 760), (820, 760)], fill=DARK_RULE, width=1)
-    draw_tracked(d, (100, 786), "FLUTTERBYTES × SERVERPOD / 2026", font("mono", 14), DARK_MUTED, 1.2)
+    draw_tracked(d, (100, 786), "AJAO PRECISION WORKS / LAGOS, NIGERIA / NGN", font("mono", 14), DARK_MUTED, 1.2)
 
     # Outcome card
     px, py, pw, ph = 1030, 200, 790, 650
@@ -555,28 +555,28 @@ SCENES = [
         "id": "01",
         "type": "title",
         "name": "Title",
-        "vo": "Most shop tools show a red bar. A red bar is not a reason. Takt tells you why you're late, and what would fix it.",
+        "vo": "Most shop tools show a red bar. A red bar is not a reason. At Ajao Precision Works in Lagos, Takt tells you why you're late, and what would fix it.",
         "pad": 0.8,
     },
     {
         "id": "02",
         "type": "manifesto",
         "name": "Problem",
-        "vo": "High-mix shops don't lose dates because one operation is slow. Jobs wait behind a constrained work center, and that queue is where the promise disappears.",
+        "vo": "High-mix shops in Lagos don't lose dates because one operation is slow. Jobs wait behind a constrained work center, and that queue is where the promise disappears.",
         "pad": 0.5,
     },
     {
         "id": "03",
         "type": "board",
         "name": "Diagnosis",
-        "vo": "Takt opens on the diagnosis board. Job J ten fifty-one is twenty-six hours and forty minutes late. Every minute traces to queue time at CNC zero two, running at ninety-one percent load. Named. Measured. Causal.",
+        "vo": "Takt opens on the diagnosis board. Lekki Fluid's adapter plate, J ten fifty-one, is twenty-six hours and forty minutes late. Every minute traces to queue time at CNC zero two, running at ninety-one percent load. Named. Measured. Causal.",
         "pad": 0.5,
     },
     {
         "id": "04",
         "type": "whatif",
         "name": "What-if",
-        "vo": "Test the fix before you spend. Add one machine at CNC zero two. Same seed, one capacity change. The late job clears, and all sixteen hundred lost minutes come back.",
+        "vo": "Before Tunde buys another machine, test the fix. Add one machine at CNC zero two. Same seed, one capacity change. The late job clears, and all sixteen hundred lost minutes come back.",
         "pad": 0.5,
     },
     {
@@ -597,7 +597,7 @@ SCENES = [
         "id": "07",
         "type": "roles",
         "name": "Authority",
-        "vo": "Authority is enforced on the Serverpod API, not the interface. Owner, editor, viewer. A viewer reads the board; the server rejects every write. Hiding a button is UX. Rejecting the write is security.",
+        "vo": "Authority is enforced on the Serverpod API, not the interface. Tunde owns. Ngozi edits. Amina reads, and the server rejects every write. Hiding a button is UX. Rejecting the write is security.",
         "pad": 0.5,
     },
     {

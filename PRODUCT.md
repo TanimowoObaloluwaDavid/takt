@@ -29,6 +29,42 @@ quality, shipping, reporting. Takt’s premise is that there is room for a narro
 fast, **diagnosis-first** capacity tool that sits beside those systems and
 answers the “why” question directly.
 
+## 1.1 Why Nigeria is the first pilot market
+
+Takt is a horizontal product, but the first design-partner market is specific:
+Nigeria's make-to-order manufacturing cluster. The working list is precision
+machining and fabrication in the Lagos–Ogun corridor, auto components in Nnewi,
+plastics and light manufacturing in Aba, and agro-equipment in Kano. This is a
+focus for learning, not a market-size claim.
+
+The constraints are unusually legible in these shops:
+
+- High mix and low volume make every week a different routing problem.
+- Much of the machine tool, tooling, and spare-parts base is imported, so
+  capacity additions are FX-denominated and slow.
+- The person who quotes the date is often the owner or a production manager,
+  not a dedicated scheduler.
+- A single constrained cell can hold up jobs for several other customers, so
+  the cost of a vague answer is not confined to one order.
+- A full ERP/MES rollout is a large commitment for a shop that needs a useful
+  answer this week.
+
+That is why the demo is not a US shop with a currency label swapped. The
+workspace is **Ajao Precision Works** in Lagos, the currency is **NGN**, and the
+customers are fictional Nigerian manufacturers. The product decisions stay the
+same: diagnose the queue, test one capacity change, and enforce authority on the
+server.
+
+The proposed next step is a design-partner pilot with 3–5 shops in one cluster:
+one bottleneck, one week of real jobs, a baseline run, and one capacity
+what-if. The measures are whether the owner can explain the delay without a
+report, whether the what-if changes a capacity decision, and which real
+constraint the shop wants modeled next.
+
+**Boundary:** no Nigerian customer was interviewed, no pilot was run, and no
+Nigerian logo, testimonial, revenue, or market-size figure is claimed. The
+Nigeria focus is a stated product bet, not traction.
+
 ## 2. What was verified in the market scan
 
 These are public, dated descriptions — not independent benchmarks. A vendor’s
@@ -80,9 +116,14 @@ so they are not mistaken for research findings.
   “optimized” answer, because the comparison isolates the capacity change.
 - **A6.** Small shops will tolerate deterministic processing times and no shift
   calendars for an early planning tool; complex shops will not.
+- **A7.** Nigerian make-to-order shops will adopt a narrow diagnosis tool before
+  replacing an ERP, because implementation time and cash are both constrained.
+- **A8.** When a machine is imported and paid for in FX, a like-for-like what-if
+  is more persuasive than an optimizer score.
 
 The app does not claim product-market fit. No customer interviews, pricing
-tests, or usage analytics were conducted for this build.
+tests, or usage analytics were conducted for this build. The Nigeria focus is a
+pilot thesis, not a verified finding.
 
 ## 4. Target users and jobs
 
@@ -95,6 +136,10 @@ rush job arrives.
 **Job to be done:** “When I’m about to miss a date, help me see what is really
 causing it and tell me whether adding capacity here would fix it — before I call
 the customer.”
+
+The first design partners are Nigerian make-to-order shops in the Lagos–Ogun
+corridor, Nnewi, Aba, or Kano. The persona and job are unchanged; the demo uses
+NGN and local customer names so the workflow is legible without translation.
 
 ### Secondary persona — scheduler / lead
 
@@ -151,9 +196,9 @@ being able to change the shop.”
 | Collaboration | Role-based ERP access | Workspace roles with scoped keys and guest viewing |
 | Scope | Quoting through shipping | Scheduling, diagnosis, what-if, team access |
 
-**Positioning statement:** For high-mix job shops that already know they are
-capacity-constrained, Takt is a diagnosis-first scheduling surface that shows
-why a job is late and what capacity change recovers the time — without replacing
+**Positioning statement:** For high-mix job shops — starting with Nigeria's
+make-to-order cluster — Takt is a diagnosis-first scheduling surface that shows
+why a job is late and what capacity change recovers the time, without replacing
 the shop’s ERP.
 
 Takt is not:
@@ -174,6 +219,9 @@ Takt is not:
 - Solve, diagnosis, schedule snapshot, history, what-if.
 - Search/filter and CSV-to-clipboard for visible jobs.
 - Responsive Flutter UI with role-aware controls.
+- A Nigerian demo workspace, **Ajao Precision Works** (Lagos, NGN), with
+  fictional local customers and the owner/editor/viewer role story.
+- NGN in the workspace currency selector; the picker starts on NGN.
 
 ### Deliberately absent
 
@@ -200,6 +248,8 @@ These are proposed measures, not results.
   side-by-side task.
 - A shop can describe which real constraints are missing and rank the next two
   to model.
+- A design partner can state the binding work center and the capacity decision
+  in one sentence after the demo, without reading a report.
 
 ## 10. Visual and interaction direction
 
@@ -239,17 +289,21 @@ The security tradeoffs and remaining work are listed in
 ## 12. Roadmap
 
 Near term:
-1. Key rotation and a proper invitation flow for unregistered emails.
-2. Shift calendars and operator/resource constraints.
-3. CSV/ERP import and export.
-4. Audit log for membership and solver runs.
-5. Durable rate limiting and secure session storage.
+1. Design-partner pilot kit: one-week job template, guided baseline/what-if,
+   and feedback capture for Nigerian shops.
+2. Key rotation and a proper invitation flow for unregistered emails.
+3. Shift calendars and operator/resource constraints.
+4. CSV/ERP import and export.
+5. Audit log for membership and solver runs.
+6. Durable rate limiting and secure session storage.
 
 Later:
-6. Scenario library with named comparisons.
-7. Machine downtime and maintenance windows.
-8. Multi-site planning and ownership transfer.
-9. Customer-facing share links scoped to a single job, not the whole shop.
+7. Localized onboarding: NGN/WAT presets, local job templates, and a
+   pilot-friendly import path.
+8. Scenario library with named comparisons.
+9. Machine downtime and maintenance windows.
+10. Multi-site planning and ownership transfer.
+11. Customer-facing share links scoped to a single job, not the whole shop.
 
 ## 13. Research limitations
 
@@ -257,6 +311,9 @@ Later:
   20 October 2026. It did not include trials, pricing negotiations, or hands-on
   evaluation.
 - No customer interviews or time-and-motion studies were run for this build.
+- The Nigeria framing is a product hypothesis; no Nigerian shop was interviewed
+  for this build, and the demo workspace and its people and customers are
+  fictional.
 - No market-size or willingness-to-pay claim is made.
 - Vendor feature labels may hide deeper capabilities; Takt’s differentiation is
   a product choice, not a verified claim that competitors cannot explain delay.

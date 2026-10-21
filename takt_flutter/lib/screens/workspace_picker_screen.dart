@@ -19,7 +19,7 @@ class WorkspacePickerScreen extends StatefulWidget {
 class _WorkspacePickerScreenState extends State<WorkspacePickerScreen> {
   final _name = TextEditingController();
   final _key = TextEditingController();
-  String _currency = 'USD';
+  String _currency = 'NGN';
   bool _withSample = true;
   String? _localError;
 
@@ -411,16 +411,16 @@ class _WorkspacePickerScreenState extends State<WorkspacePickerScreen> {
                   controller: _name,
                   style: inputStyle,
                   textInputAction: TextInputAction.next,
-                  decoration: taktInput(hint: 'e.g. Calder Precision'),
+                  decoration: taktInput(hint: 'e.g. Ajao Precision Works'),
                 ),
                 const SizedBox(height: 14),
                 const FieldLabel('Currency'),
-                Row(
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
                   children: [
-                    for (final code in const ['USD', 'GBP', 'EUR']) ...[
+                    for (final code in const ['NGN', 'USD', 'GBP', 'EUR'])
                       _currencyButton(code),
-                      const SizedBox(width: 8),
-                    ],
                   ],
                 ),
                 const SizedBox(height: 14),

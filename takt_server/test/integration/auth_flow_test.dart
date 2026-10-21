@@ -24,11 +24,11 @@ void main() {
     test('registration, login, session identity, and logout', () async {
       final owner = await register(
         'owner@auth.test',
-        'Alex Chen',
+        'Tunde Ajao',
         ownerPassword,
       );
       expect(owner.user.email, 'owner@auth.test');
-      expect(owner.user.displayName, 'Alex Chen');
+      expect(owner.user.displayName, 'Tunde Ajao');
       expect(owner.token, isNotEmpty);
       expect(owner.workspaces, isEmpty);
 
@@ -89,11 +89,12 @@ void main() {
         sessionBuilder,
         owner.token,
         'Auth Shop',
-        'USD',
+        'NGN',
         true,
       );
 
       expect(workspace.role, 'owner');
+      expect(workspace.currency, 'NGN');
       expect(workspace.accessKey, isNotEmpty);
 
       final centers = await endpoints.workCenter.list(
@@ -106,6 +107,10 @@ void main() {
       );
       expect(centers, hasLength(7));
       expect(jobs, hasLength(14));
+      expect(
+        jobs.map((bundle) => bundle.job.customer),
+        contains('Eko Marine Services'),
+      );
 
       final me = await endpoints.auth.me(sessionBuilder, owner.token);
       expect(me.workspaces, hasLength(1));

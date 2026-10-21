@@ -1,9 +1,9 @@
 {
   "__className__": "Shop",
-  "id": 6,
-  "name": "Harbor Machine Co.",
-  "accessKey": "DEMO0-00000-00000-00000",
-  "currency": "USD",
-  "minutesPerDay": 480,
-  "createdAt": "2026-10-20T09:03:29.670909Z"
+  "id": 10,
+  "name": "Ajao Precision Works",
+  "accessKey": "AJPW4-NG26L-AGOS9-2026K",
+  "currency": "NGN",
+  "minutesPerDay": 1440,
+  "createdAt": "2026-10-21T19:39:59.144498Z"
 }

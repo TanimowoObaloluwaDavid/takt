@@ -361,7 +361,7 @@ class _AuthScreenState extends State<AuthScreen> {
               textCapitalization: TextCapitalization.words,
               textInputAction: TextInputAction.next,
               autofillHints: const [AutofillHints.name],
-              decoration: taktInput(hint: 'e.g. Alex Chen'),
+              decoration: taktInput(hint: 'e.g. Tunde Ajao'),
             ),
             const SizedBox(height: 14),
           ],

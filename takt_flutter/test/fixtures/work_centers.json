@@ -1,8 +1,8 @@
 [
   {
     "__className__": "WorkCenter",
-    "id": 27,
-    "shopId": 6,
+    "id": 56,
+    "shopId": 10,
     "name": "Assembly",
     "code": "ASSY",
     "machines": 2,
@@ -11,8 +11,8 @@
   },
   {
     "__className__": "WorkCenter",
-    "id": 23,
-    "shopId": 6,
+    "id": 52,
+    "shopId": 10,
     "name": "CNC Mill 1",
     "code": "CNC-01",
     "machines": 2,
@@ -21,8 +21,8 @@
   },
   {
     "__className__": "WorkCenter",
-    "id": 24,
-    "shopId": 6,
+    "id": 53,
+    "shopId": 10,
     "name": "CNC Mill 2",
     "code": "CNC-02",
     "machines": 1,
@@ -31,8 +31,8 @@
   },
   {
     "__className__": "WorkCenter",
-    "id": 26,
-    "shopId": 6,
+    "id": 55,
+    "shopId": 10,
     "name": "Deburr",
     "code": "DEBURR",
     "machines": 2,
@@ -41,8 +41,8 @@
   },
   {
     "__className__": "WorkCenter",
-    "id": 28,
-    "shopId": 6,
+    "id": 57,
+    "shopId": 10,
     "name": "Inspection",
     "code": "INSP",
     "machines": 1,
@@ -51,8 +51,8 @@
   },
   {
     "__className__": "WorkCenter",
-    "id": 25,
-    "shopId": 6,
+    "id": 54,
+    "shopId": 10,
     "name": "Turning",
     "code": "LATHE",
     "machines": 1,
@@ -61,8 +61,8 @@
   },
   {
     "__className__": "WorkCenter",
-    "id": 29,
-    "shopId": 6,
+    "id": 58,
+    "shopId": 10,
     "name": "Paint",
     "code": "PAINT",
     "machines": 1,

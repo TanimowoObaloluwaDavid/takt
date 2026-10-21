@@ -44,7 +44,10 @@ Future<void> main(List<String> args) async {
     );
   }
 
-  write('shop', shop.copyWith(accessKey: 'DEMO0-00000-00000-00000').toJson());
+  write(
+    'shop',
+    shop.copyWith(accessKey: 'AJPW4-NG26L-AGOS9-2026K').toJson(),
+  );
   write('work_centers', workCenters.map((center) => center.toJson()).toList());
   write('jobs', jobs.map((bundle) => bundle.toJson()).toList());
   write('snapshot', snapshot.toJson());

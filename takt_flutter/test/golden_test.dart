@@ -15,7 +15,7 @@ import 'package:takt_flutter/theme/takt_theme.dart';
 /// Renders the real screens from a captured demo workspace.
 ///
 /// Regenerate fixtures with the dev server running:
-///   dart run tool/dump_fixtures.dart ACCESS_KEY "Harbor Machine Co."
+///   dart run tool/dump_fixtures.dart ACCESS_KEY "Ajao Precision Works"
 ///
 /// Render the goldens with:
 ///   flutter test --update-goldens test/golden_test.dart
@@ -92,8 +92,8 @@ AppState _state() {
     ..booting = false
     ..user = AuthUser(
       id: 1,
-      email: 'alex@harbor.test',
-      displayName: 'Alex Chen',
+      email: 'tunde@ajaoprecision.ng',
+      displayName: 'Tunde Ajao',
       createdAt: DateTime(2026, 10, 1),
     )
     ..sessionToken = 'fixture-session-token'
@@ -110,24 +110,24 @@ AppState _state() {
     ..members = [
       MemberInfo(
         userId: 1,
-        email: 'alex@harbor.test',
-        displayName: 'Alex Chen',
+        email: 'tunde@ajaoprecision.ng',
+        displayName: 'Tunde Ajao',
         role: 'owner',
         accessKey: _shop.accessKey,
         createdAt: DateTime(2026, 10, 1),
       ),
       MemberInfo(
         userId: 2,
-        email: 'sam@harbor.test',
-        displayName: 'Sam Rivera',
+        email: 'ngozi@ajaoprecision.ng',
+        displayName: 'Ngozi Eze',
         role: 'editor',
         accessKey: '4PCCF-QF6QC-3H82K-VGY8R',
         createdAt: DateTime(2026, 10, 2),
       ),
       MemberInfo(
         userId: 3,
-        email: 'mira@harbor.test',
-        displayName: 'Mira Patel',
+        email: 'amina@lekkifluid.ng',
+        displayName: 'Amina Bello',
         role: 'viewer',
         accessKey: '2VJ8M-7QK4D-9WX3A-5HNTB',
         createdAt: DateTime(2026, 10, 3),
@@ -192,8 +192,8 @@ AppState _accountState() {
     ..booting = false
     ..user = AuthUser(
       id: 1,
-      email: 'alex@harbor.test',
-      displayName: 'Alex Chen',
+      email: 'tunde@ajaoprecision.ng',
+      displayName: 'Tunde Ajao',
       createdAt: DateTime(2026, 10, 1),
     )
     ..sessionToken = 'fixture-session-token'
@@ -208,8 +208,8 @@ AppState _accountState() {
       ),
       WorkspaceAccess(
         shopId: 12,
-        name: 'Calder Precision',
-        currency: 'USD',
+        name: 'Lekki Fluid Systems',
+        currency: 'NGN',
         role: 'viewer',
         accessKey: '8KQ2M-4WX7P-6HNTB-3VJDA',
         createdAt: DateTime(2026, 9, 18),
@@ -283,7 +283,7 @@ void main() {
 
   testWidgets('board at desktop width', (tester) async {
     await _pump(tester);
-    expect(find.text('Harbor Machine Co.'), findsWidgets);
+    expect(find.text('Ajao Precision Works'), findsWidgets);
     await _golden(tester, 'board-wide');
   });
 
@@ -324,7 +324,7 @@ void main() {
     await _pump(tester);
     await tester.tap(find.byIcon(Icons.list_alt_outlined));
     await tester.pumpAndSettle();
-    await tester.enterText(find.byType(TextField).first, 'Meridian');
+    await tester.enterText(find.byType(TextField).first, 'Lekki');
     await tester.pumpAndSettle();
     expect(find.text('J-1051'), findsOneWidget);
     expect(find.text('J-1047'), findsNothing);
@@ -355,7 +355,7 @@ void main() {
     addTearDown(state.dispose);
     await _pumpScreen(tester, WorkspacePickerScreen(state: state));
     expect(tester.takeException(), isNull);
-    expect(find.text('Calder Precision'), findsOneWidget);
+    expect(find.text('Lekki Fluid Systems'), findsOneWidget);
     await _goldenOf(tester, find.byType(WorkspacePickerScreen), 'picker-wide');
   });
 

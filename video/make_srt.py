@@ -29,6 +29,10 @@ def main():
         cursor += float(audio.duration) + PADS[i]
         audio.close()
 
+    minutes = int(cursor // 60)
+    seconds = cursor - minutes * 60
+    runtime = f"{minutes}:{seconds:04.1f}"
+
     blocks = []
     rows = []
     for i, (scene, start) in enumerate(zip(SCENES, starts), start=1):
@@ -50,10 +54,15 @@ def main():
     transcript = [
         "# Takt — product film transcript",
         "",
-        "**Runtime:** 1:29.9  ",
-        "**Voice:** `en-US-AndrewNeural` via Edge TTS  ",
-        "**Cuts:** `takt-demo.mp4` (16:9 clean) · `takt-demo-captioned.mp4` (16:9 captions) · `takt-demo-vertical.mp4` (9:16 captions) · `takt-demo-vertical-clean.mp4` (9:16 clean)  ",
-        "**Captions:** `takt-demo.srt` / `takt-demo-vertical.srt`",
+        f"- **Runtime:** {runtime}",
+        "- **Voice:** `en-NG-AbeoNeural` via Edge TTS, +12% rate",
+        "- **Demo workspace:** Ajao Precision Works, Lagos, Nigeria; NGN; "
+        "Tunde Ajao (owner), Ngozi Eze (editor), Amina Bello (viewer)",
+        "- **Cuts:** `takt-demo.mp4` (16:9 clean) · "
+        "`takt-demo-captioned.mp4` (16:9 captions) · "
+        "`takt-demo-vertical.mp4` (9:16 captions) · "
+        "`takt-demo-vertical-clean.mp4` (9:16 clean)",
+        "- **Captions:** `takt-demo.srt` / `takt-demo-vertical.srt`",
         "",
         "| Time | Scene | Voiceover |",
         "|------|-------|-----------|",
@@ -67,8 +76,9 @@ def main():
         "- Access: guest workspace key, account sign-in, Argon2id passwords, 30-day hashed sessions.",
         "- Authority: owner / editor / viewer roles enforced by the Serverpod API; viewer writes rejected with HTTP 400.",
         "- Stack: Flutter, Serverpod, PostgreSQL; 30 server tests and 17 Flutter tests.",
+        "- Local context: the demo shop is Ajao Precision Works in Lagos, with NGN and Nigerian customer names; the solver and roles are unchanged.",
         "",
-        "The narration is synthesized. All product screenshots are real captures of the running Takt app.",
+        "The narration is synthesized. All product screens are rendered from the real Flutter app against captured demo data; the workspace, people, and customers are fictional.",
         "",
     ]
     (ROOT / "TRANSCRIPT.md").write_text("\n".join(transcript), encoding="utf-8")
