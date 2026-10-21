@@ -7,10 +7,10 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  server:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     env:
-      VERSION: '4.0.0-beta.4'
       SERVERPOD_PASSWORD_database: 'pWXpuJ9XNHsYBm0EPL8tTwL8xXt3cnaH'
       SERVERPOD_PASSWORD_redis: '-EKh4CO1GZQUTrN8j4jNV1LQKHIgr-Dy'
 
@@ -21,25 +21,45 @@ jobs:
         with:
           flutter-version: '3.38.4'
 
-      - name: Start containers
-        working-directory: takt_server
-        run: docker compose up --quiet-pull --build -d
-
-      - name: Install dependencies
+      - name: Install workspace dependencies
         run: flutter pub get
 
-      - name: Install Serverpod CLI
-        run: dart install serverpod_cli $VERSION
-
-      - name: Run Serverpod generator
-        working-directory: takt_server
-        run: serverpod generate
-
-      - name: Run tests
+      - name: Run Serverpod tests
         working-directory: takt_server
         run: dart test
 
-      - name: Stop containers
-        if: always()
-        working-directory: takt_server
-        run: docker compose down -v
+  flutter:
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.4'
+
+      - name: Install workspace dependencies
+        run: flutter pub get
+
+      - name: Run Flutter tests and visual goldens
+        working-directory: takt_flutter
+        run: flutter test --no-pub
+
+  web-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.4'
+
+      - name: Install workspace dependencies
+        run: flutter pub get
+
+      - name: Build production web app
+        working-directory: takt_flutter
+        run: flutter build web --release

@@ -17,6 +17,17 @@ Built with **Flutter**, **Serverpod**, and an embedded PostgreSQL database.
 | --- | --- |
 | ![Takt board with schedule diagnosis](docs/assets/board-wide.png) | ![Takt viewer access with writes disabled](docs/assets/board-viewer.png) |
 
+## Demo film
+
+The 90-second product film is in [`video/takt-demo.mp4`](video/takt-demo.mp4),
+with a synthesized voiceover and an SRT caption track
+([`video/takt-demo.srt`](video/takt-demo.srt)). Captioned and vertical cuts are
+also ready: [`takt-demo-captioned.mp4`](video/takt-demo-captioned.mp4) (16:9,
+burned-in captions) and [`takt-demo-vertical.mp4`](video/takt-demo-vertical.mp4)
+(9:16, burned-in captions). The full narration and scene-by-scene proof are in
+[`video/TRANSCRIPT.md`](video/TRANSCRIPT.md). Every screen in the film is a real
+capture of the running app.
+
 ## Why Takt
 
 Most shop tools show you a calendar full of bars. A red bar is not a reason.

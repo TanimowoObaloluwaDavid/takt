@@ -20,3 +20,8 @@ pubspec_overrides.yaml
 
 # Golden test failure artifacts
 **/test/failures/
+
+# Video render intermediates (final cuts are tracked)
+video/build/
+__pycache__/
+*.pyc

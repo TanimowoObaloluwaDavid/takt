@@ -9,6 +9,7 @@ on:
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -17,9 +18,13 @@ jobs:
         with:
           flutter-version: '3.38.4'
 
-      - name: Install dependencies
+      - name: Install workspace dependencies
         run: flutter pub get
 
-      - name: Analyze
+      - name: Analyze Serverpod API
         working-directory: takt_server
         run: dart analyze --fatal-infos
+
+      - name: Analyze Flutter app
+        working-directory: takt_flutter
+        run: flutter analyze --no-pub

@@ -25,6 +25,23 @@ late List<JobBundle> _jobs;
 late ScheduleSnapshot _snapshot;
 late List<ScheduleRun> _history;
 
+/// Find the Flutter SDK without relying on a machine-specific path.
+String _flutterRoot() {
+  final fromEnv = Platform.environment['FLUTTER_ROOT'];
+  if (fromEnv != null && fromEnv.isNotEmpty) return fromEnv;
+
+  var dir = File(Platform.resolvedExecutable).parent;
+  for (var i = 0; i < 6; i++) {
+    final icon = File(
+      '${dir.path}/bin/cache/artifacts/material_fonts/'
+      'MaterialIcons-Regular.otf',
+    );
+    if (icon.existsSync()) return dir.path;
+    dir = dir.parent;
+  }
+  return r'C:\flutter';
+}
+
 Future<void> _loadFonts() async {
   Future<void> load(String family, String file) async {
     final loader = FontLoader(family)
@@ -47,7 +64,7 @@ Future<void> _loadFonts() async {
 
   // Material Icons live in the SDK, not the app bundle. Without this the
   // golden images render every icon as a missing-glyph box.
-  final root = Platform.environment['FLUTTER_ROOT'] ?? r'C:\flutter';
+  final root = _flutterRoot();
   final iconFile = File(
     '$root/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf',
   );

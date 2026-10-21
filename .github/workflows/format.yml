@@ -9,6 +9,7 @@ on:
 jobs:
   format:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -17,9 +18,13 @@ jobs:
         with:
           flutter-version: '3.38.4'
 
-      - name: Install dependencies
+      - name: Install workspace dependencies
         run: flutter pub get
 
-      - name: Check formatting
+      - name: Check Serverpod formatting
         working-directory: takt_server
-        run: dart format --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed lib test
+
+      - name: Check Flutter formatting
+        working-directory: takt_flutter
+        run: dart format --output=none --set-exit-if-changed lib test tool
