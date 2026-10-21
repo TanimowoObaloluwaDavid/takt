@@ -2,7 +2,7 @@
 
 - **Runtime:** 1:35.7
 - **Voice:** `en-NG-AbeoNeural` via Edge TTS, +12% rate
-- **Demo workspace:** Ajao Precision Works, Lagos, Nigeria; NGN; Tunde Ajao (owner), Ngozi Eze (editor), Amina Bello (viewer)
+- **Demo workspace:** Ajao Precision Works, Lagos, Nigeria; NGN, WAT; Tunde Ajao (owner), Ngozi Eze (editor), Amina Bello (viewer)
 - **Cuts:** `takt-demo.mp4` (16:9 clean) · `takt-demo-captioned.mp4` (16:9 captions) · `takt-demo-vertical.mp4` (9:16 captions) · `takt-demo-vertical-clean.mp4` (9:16 clean)
 - **Captions:** `takt-demo.srt` / `takt-demo-vertical.srt`
 

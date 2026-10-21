@@ -2,7 +2,7 @@
 
 A 96-second explainer for Takt, the finite-capacity scheduler that tells you
 why you're late. The story is set in the fictional Lagos job shop **Ajao
-Precision Works** (NGN), and every screen is rendered from the real Flutter
+Precision Works** (NGN, WAT), and every screen is rendered from the real Flutter
 widgets against captured demo data. The voice is synthesized with Microsoft
 Edge TTS (`en-NG-AbeoNeural`, +12% rate).
 

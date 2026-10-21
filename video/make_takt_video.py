@@ -261,7 +261,7 @@ def scene_title(s) -> Image.Image:
     d.text((100, 664), "why you're late.", font=tag2, fill=TEAL_BRIGHT)
 
     d.line([(100, 770), (820, 770)], fill=DARK_RULE, width=1)
-    draw_tracked(d, (100, 796), "AJAO PRECISION WORKS / LAGOS, NIGERIA / NGN", font("mono", 15), DARK_MUTED, 1.2)
+    draw_tracked(d, (100, 796), "AJAO PRECISION WORKS / LAGOS, NIGERIA / WAT / NGN", font("mono", 15), DARK_MUTED, 1.2)
 
     # Product-shaped diagram: a miniature schedule with one late bar crossing its due line.
     px, py, pw, ph = 1010, 196, 810, 700
@@ -512,19 +512,19 @@ def scene_outro(s) -> Image.Image:
     d = ImageDraw.Draw(img)
     draw_chrome(img, d, 8, dark=True, top_right="FLUTTER × SERVERPOD / 2026")
 
-    draw_tracked(d, (100, 198), "WHY LATE? TAKT KNOWS. / LAGOS, NIGERIA", font("mono_semi", 16), TEAL_BRIGHT, 2.4)
+    draw_tracked(d, (100, 198), "WHY LATE? TAKT KNOWS. / LAGOS, NIGERIA / WAT", font("mono_semi", 16), TEAL_BRIGHT, 2.4)
     ink_top(d, (86, 236), "Takt", font("bold", 196), DARK_TEXT)
     d.text((100, 486), "The scheduler that tells you", font=font("semi", 48), fill=DARK_TEXT)
     d.text((100, 548), "why you're late.", font=font("semi", 48), fill=TEAL_BRIGHT)
 
-    chips = ["FLUTTER", "SERVERPOD", "POSTGRES", "LAGOS / NGN", "30 + 17 TESTS"]
+    chips = ["FLUTTER", "SERVERPOD", "POSTGRES", "LAGOS / WAT / NGN", "30 + 17 TESTS"]
     x = 100
     for text in chips:
         w, h = chip(d, (x, 648), text, font("mono_semi", 13), DARK_TEXT, (44, 42, 38, 255), (74, 69, 61, 255), 14, 9, 7)
         x += w + 10
 
     d.line([(100, 760), (820, 760)], fill=DARK_RULE, width=1)
-    draw_tracked(d, (100, 786), "AJAO PRECISION WORKS / LAGOS, NIGERIA / NGN", font("mono", 14), DARK_MUTED, 1.2)
+    draw_tracked(d, (100, 786), "AJAO PRECISION WORKS / LAGOS, NIGERIA / WAT / NGN", font("mono", 14), DARK_MUTED, 1.2)
 
     # Outcome card
     px, py, pw, ph = 1030, 200, 790, 650

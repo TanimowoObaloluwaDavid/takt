@@ -56,7 +56,7 @@ def main():
         "",
         f"- **Runtime:** {runtime}",
         "- **Voice:** `en-NG-AbeoNeural` via Edge TTS, +12% rate",
-        "- **Demo workspace:** Ajao Precision Works, Lagos, Nigeria; NGN; "
+        "- **Demo workspace:** Ajao Precision Works, Lagos, Nigeria; NGN, WAT; "
         "Tunde Ajao (owner), Ngozi Eze (editor), Amina Bello (viewer)",
         "- **Cuts:** `takt-demo.mp4` (16:9 clean) · "
         "`takt-demo-captioned.mp4` (16:9 captions) · "

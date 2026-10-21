@@ -143,7 +143,7 @@ def scene_title_v(s) -> Image.Image:
     d.text((M, 552), "The scheduler that tells you", font=font("semi", 52), fill=DARK_TEXT)
     d.text((M, 616), "why you're late.", font=font("semi", 52), fill=TEAL_BRIGHT)
     d.line([(M, 716), (824, 716)], fill=DARK_RULE, width=1)
-    draw_tracked(d, (M, 742), "AJAO PRECISION WORKS / LAGOS, NIGERIA / NGN", font("mono", 16), DARK_MUTED, 1.0)
+    draw_tracked(d, (M, 742), "AJAO PRECISION WORKS / LAGOS, NIGERIA / WAT / NGN", font("mono", 16), DARK_MUTED, 1.0)
 
     # Miniature schedule, reflowed for portrait.
     px, py, pw, ph = M, 830, 952, 650
@@ -390,19 +390,19 @@ def scene_outro_v(s) -> Image.Image:
     d = ImageDraw.Draw(img)
     draw_vchrome(d, 8, dark=True, top_right="FLUTTER × SERVERPOD / 2026")
 
-    draw_tracked(d, (M, 176), "WHY LATE? TAKT KNOWS. / LAGOS, NIGERIA", font("mono_semi", 18), TEAL_BRIGHT, 2.0)
+    draw_tracked(d, (M, 176), "WHY LATE? TAKT KNOWS. / LAGOS, NIGERIA / WAT", font("mono_semi", 18), TEAL_BRIGHT, 2.0)
     ink_top(d, (54, 208), "Takt", font("bold", 204), DARK_TEXT)
     d.text((M, 470), "The scheduler that tells you", font=font("semi", 50), fill=DARK_TEXT)
     d.text((M, 532), "why you're late.", font=font("semi", 50), fill=TEAL_BRIGHT)
 
-    chips = ["FLUTTER", "SERVERPOD", "POSTGRES", "LAGOS / NGN", "30 + 17 TESTS"]
+    chips = ["FLUTTER", "SERVERPOD", "POSTGRES", "LAGOS / WAT / NGN", "30 + 17 TESTS"]
     x = M
     for text in chips:
         w, _ = chip(d, (x, 622), text, font("mono_semi", 14), DARK_TEXT, (44, 42, 38, 255), (74, 69, 61, 255), 14, 9, 7)
         x += w + 9
 
     d.line([(M, 716), (RIGHT, 716)], fill=DARK_RULE, width=1)
-    draw_tracked(d, (M, 742), "AJAO PRECISION WORKS / LAGOS, NIGERIA / NGN", font("mono", 14), DARK_MUTED, 1.1)
+    draw_tracked(d, (M, 742), "AJAO PRECISION WORKS / LAGOS, NIGERIA / WAT / NGN", font("mono", 14), DARK_MUTED, 1.1)
 
     px, py, pw, ph = M, 800, 952, 510
     rounded(d, (px, py, px + pw, py + ph), 22, fill=DARK_CARD, outline=(62, 58, 52, 255), width=1)

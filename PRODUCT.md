@@ -50,10 +50,11 @@ The constraints are unusually legible in these shops:
   answer this week.
 
 That is why the demo is not a US shop with a currency label swapped. The
-workspace is **Ajao Precision Works** in Lagos, the currency is **NGN**, and the
-customers are fictional Nigerian manufacturers. The product decisions stay the
+workspace is **Ajao Precision Works** in Lagos (WAT), the currency is **NGN**,
+and the customers are fictional Nigerian manufacturers. The product decisions stay the
 same: diagnose the queue, test one capacity change, and enforce authority on the
-server.
+server. WAT is demo context; time-zone conversion and shift calendars are not
+modeled yet.
 
 The proposed next step is a design-partner pilot with 3–5 shops in one cluster:
 one bottleneck, one week of real jobs, a baseline run, and one capacity
@@ -219,8 +220,9 @@ Takt is not:
 - Solve, diagnosis, schedule snapshot, history, what-if.
 - Search/filter and CSV-to-clipboard for visible jobs.
 - Responsive Flutter UI with role-aware controls.
-- A Nigerian demo workspace, **Ajao Precision Works** (Lagos, NGN), with
-  fictional local customers and the owner/editor/viewer role story.
+- A Nigerian demo workspace, **Ajao Precision Works** (Lagos, NGN; WAT
+  context), with fictional local customers and the owner/editor/viewer role
+  story.
 - NGN in the workspace currency selector; the picker starts on NGN.
 
 ### Deliberately absent

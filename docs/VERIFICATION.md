@@ -102,7 +102,7 @@ Against the running development server on `http://localhost:8080`:
 | Auth migration applied to development database | Tables, unique indexes, and migration registry entry present |
 
 The live demo workspace is **Ajao Precision Works**, a fictional Lagos shop
-seeded through the real workspace and demo endpoints. Its people and customers
+(WAT context) seeded through the real workspace and demo endpoints. Its people and customers
 are fictional; the credentials are in the README's “Try the demo” section.
 
 The broader auth behavior was verified during the implementation against the

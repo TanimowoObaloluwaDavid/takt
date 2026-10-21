@@ -30,7 +30,7 @@ with a Nigerian English voiceover (`en-NG-AbeoNeural`) and an SRT caption track
 also ready: [`takt-demo-captioned.mp4`](video/takt-demo-captioned.mp4) (16:9,
 burned-in captions) and [`takt-demo-vertical.mp4`](video/takt-demo-vertical.mp4)
 (9:16, burned-in captions). The story is set in the fictional Lagos job shop
-**Ajao Precision Works** (NGN). The full narration and scene-by-scene proof are
+**Ajao Precision Works** (NGN, WAT). The full narration and scene-by-scene proof are
 in [`video/TRANSCRIPT.md`](video/TRANSCRIPT.md). Every screen is rendered from
 the real Flutter widgets against captured demo data.
 
@@ -80,13 +80,16 @@ work center that can quietly become the queue for the whole shop.
 
 That context shapes the product, not just the demo:
 
-- **NGN and a Lagos demo workspace**, instead of a US placeholder.
+- **NGN and a Lagos (WAT) demo workspace**, instead of a US placeholder.
 - **Diagnosis before optimization**, because a small shop needs an answer this
   week, not a 3–6 month ERP rollout.
 - **What-if before capex**, because another CNC machine is an FX-denominated
   decision and the owner needs evidence that the bottleneck is real.
 - **Scoped viewer keys**, because the person promising the date is often not the
   person allowed to change the schedule.
+
+WAT is demo context, not a time-zone feature: the scheduler works in continuous
+minutes and does not convert time zones or model shift calendars yet.
 
 This is a pilot thesis, not traction. Ajao Precision Works and its people and
 customers are fictional. Takt has no Nigerian customer, logo, testimonial,
@@ -311,8 +314,8 @@ Read these before exposing Takt beyond a local demo.
 - No email, push, or SMS notifications.
 - Scheduling is heuristic, not optimal or exact. It assumes deterministic
   processing times, flat changeovers, no shifts/calendars, no operators, no
-  material availability, no batching, no preemption, and no machine downtime.
-  It is a planning aid, not a promise of delivery.
+  material availability, no batching, no preemption, no time-zone conversion,
+  and no machine downtime. It is a planning aid, not a promise of delivery.
 - Serverpod Cloud deployment was not performed in this build and still needs
   the user's cloud login. Local development and the release web build are
   verified.
