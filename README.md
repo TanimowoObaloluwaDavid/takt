@@ -9,6 +9,9 @@ language and tells you which capacity decision would recover the lost time.
 
 Built with **Flutter**, **Serverpod**, and an embedded PostgreSQL database.
 
+**Live demo:** <https://takt-demo.serverpod.space> — hosted on Serverpod Cloud
+with a managed PostgreSQL database.
+
 **The demo in one sentence:** Ajao Precision Works in Lagos is 26h 40m late on
 J-1051; Takt traces every minute to the CNC-02 queue and shows that one extra
 machine clears the job and recovers 1,600 minutes — before the owner spends the
@@ -41,16 +44,21 @@ Precision Works**: seven work centers, fourteen jobs, and customers such as Eko
 Marine, Lekki Fluid, Kano Agro, Nnewi Auto, and Aba Plastics. The data is seeded
 through the same endpoints and solver as any other workspace.
 
+The hosted demo at <https://takt-demo.serverpod.space> is seeded with the same
+workspace, so the accounts below work there. Re-seed it at any time with
+`dart run tool/seed_cloud.dart` from `takt_client/`; the script is idempotent.
+
 | Role | Sign in | What to look for |
 | --- | --- | --- |
 | **Owner** | `tunde@ajaoprecision.ng` / `Lagos.2026!` | Full board, setup, People, and the full-access key |
 | **Editor** | `ngozi@ajaoprecision.ng` / `Lagos.2026!` | Can run the solver and edit; cannot manage people |
 | **Viewer** | `amina@lekkifluid.ng` / `Lagos.2026!` | Read-only board and what-if; the API rejects writes |
 
-Guest viewer key: `ZQCVW-J2AQ6-2TD6H-5PRF9` — read-only, no account needed.
+Guest viewer key: `DRQFD-RVPK8-9Z6NJ-YRPX7` — read-only, no account needed.
 
-These are demo credentials for the local development database, not production
-secrets. Rotate or remove them before exposing the app publicly.
+These are demo credentials for the fictional Ajao workspace on the hosted demo
+and in local development. They are not production secrets. The workspace and its
+people are fictional; do not reuse these credentials for real data.
 
 ## Why Takt
 
@@ -316,9 +324,9 @@ Read these before exposing Takt beyond a local demo.
   processing times, flat changeovers, no shifts/calendars, no operators, no
   material availability, no batching, no preemption, no time-zone conversion,
   and no machine downtime. It is a planning aid, not a promise of delivery.
-- Serverpod Cloud deployment was not performed in this build and still needs
-  the user's cloud login. Local development and the release web build are
-  verified.
+- The hosted demo runs on Serverpod Cloud (project `takt-demo`). The deployment,
+  HTTPS, managed database, and role checks are verified; Cloud load,
+  backup/restore, custom domains, and native builds are not.
 
 ## Deployment notes
 
@@ -327,12 +335,17 @@ Read these before exposing Takt beyond a local demo.
 - Apply migrations before starting a production server.
 - Put the API behind TLS and a reverse proxy. Restrict CORS and network access
   to the shops that should reach it.
-- Replace the local demo key and any test accounts before a public launch.
-- Serverpod Cloud requires an authenticated `serverpod cloud` login; confirm the
-  target project and secrets before deploying. See the Serverpod documentation
-  for the current beta deployment flow.
-- If the web app is hosted separately from the API, update
-  `takt_flutter/assets/config.json` and rebuild.
+- Replace the demo key and any test accounts before using real shop data.
+- The project is linked to Serverpod Cloud through `takt_server/scloud.yaml`
+  (project `takt-demo`). Deploy from `takt_server/` with `scloud deploy` after
+  `scloud auth login`.
+- Build the hosted web bundle against the Cloud API before deploying:
+  `flutter build web --release --base-href / --dart-define=SERVER_URL=https://takt-demo.api.serverpod.space`,
+  then copy `takt_flutter/build/web` to `takt_server/web/app`.
+- Seed or repair the hosted demo with `dart run tool/seed_cloud.dart` from
+  `takt_client/`. The script is idempotent and prints the scoped keys.
+- `SERVER_URL` (compile-time) overrides `takt_flutter/assets/config.json`, which
+  keeps `http://localhost:8080` for local development.
 
 ## Product thinking and evidence
 

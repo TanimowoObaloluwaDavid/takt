@@ -123,7 +123,37 @@ live development API before the final build:
   `That workspace key does not exist.`
 - Revoked sessions fail `me` with a readable expired-session error.
 
-## 5. Visual artifacts
+## 5. Serverpod Cloud deployment
+
+**Project:** `takt-demo` (Starter, Europe region, small podlet, small PostgreSQL)
+**Web:** <https://takt-demo.serverpod.space>
+**API:** <https://takt-demo.api.serverpod.space>
+**Deployed:** 26 October 2026, Serverpod Cloud CLI 1.2.0
+
+The server and the Flutter web bundle are hosted by Serverpod Cloud, and the
+database is Cloud-managed; migrations were applied during the deploy. The web
+bundle was built with
+`--dart-define=SERVER_URL=https://takt-demo.api.serverpod.space` so the hosted
+app calls the Cloud API instead of localhost.
+
+The fictional Ajao workspace was seeded through the public API with
+`takt_client/tool/seed_cloud.dart`, which is idempotent. Live checks against the
+Cloud API:
+
+| Check | Result |
+| --- | --- |
+| Web app | HTTP 200; `main.dart.js` contains the Cloud API URL and no `localhost:8080` |
+| `workspace.access` with the guest viewer key | 200; `Ajao Precision Works`, `NGN`, role `viewer`, no key echo |
+| `job.list` with the guest viewer key | 200; 14 jobs |
+| Viewer `job.remove` | 400; `This key is view-only. Ask the owner for editor access.` |
+| `auth.login` as the owner | 200; Tunde Ajao, workspace `Ajao Precision Works`, role `owner` |
+| CORS | `Access-Control-Allow-Origin: *` on API responses |
+
+Not verified on Cloud: load, concurrency, backup/restore, custom domains, and
+native builds. The deployment runs the same Serverpod 4.0.0-beta.4 server code
+as local development.
+
+## 6. Visual artifacts
 
 Generated goldens are under `takt_flutter/test/goldens/` and copied into
 `docs/assets/` for the README:
@@ -140,7 +170,7 @@ fixtures. They are not stitched mockups. The current set shows **Ajao Precision
 Works**, NGN, Tunde Ajao as owner, Ngozi Eze as editor, Amina Bello as viewer,
 and the fictional Nigerian customer mix.
 
-## 5.1 Product film
+## 6.1 Product film
 
 All four cuts were re-rendered with the Nigerian workspace and a Nigerian
 English voice:
@@ -160,7 +190,7 @@ screen recording. The workspace, people, and customers are fictional. The
 voiceover was checked for duration, levels, and transcript alignment but was not
 auditioned by a human for Nigerian-English pronunciation.
 
-## 6. Not verified
+## 7. Not verified
 
 The following were not run and must not be implied by this record:
 
@@ -182,7 +212,7 @@ The following were not run and must not be implied by this record:
 - A real customer trial, Nigerian design partner, pilot, logo, testimonial,
   revenue, or market-size claim. The demo workspace is fictional.
 
-## 7. Reproduce
+## 8. Reproduce
 
 ```bash
 # server
