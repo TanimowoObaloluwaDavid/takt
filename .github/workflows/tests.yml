@@ -11,8 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      SERVERPOD_PASSWORD_database: 'pWXpuJ9XNHsYBm0EPL8tTwL8xXt3cnaH'
-      SERVERPOD_PASSWORD_redis: '-EKh4CO1GZQUTrN8j4jNV1LQKHIgr-Dy'
+      # Ephemeral CI-only credentials. Serverpod creates a throwaway database
+      # for this job, so these are not secrets and must never be reused.
+      SERVERPOD_PASSWORD_database: 'takt-ci-database'
+      SERVERPOD_PASSWORD_redis: 'takt-ci-redis'
 
     steps:
       - uses: actions/checkout@v4

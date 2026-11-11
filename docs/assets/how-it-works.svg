@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 300" role="img" aria-label="How Takt works: inputs, schedule, diagnose, decide">
+  <rect width="1280" height="300" fill="#F2F0E9"/>
+
+  <g font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="2" fill="#70746A">
+    <text x="64" y="42">THE PIPELINE</text>
+  </g>
+  <text x="64" y="70" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#14160F">From shop data to a capacity decision.</text>
+
+  <!-- Cards -->
+  <g>
+    <rect x="64" y="96" width="250" height="150" fill="#FCFBF7" stroke="#DAD6CA"/>
+    <text x="80" y="124" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="1.8" fill="#A63D28">01</text>
+    <text x="80" y="152" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#14160F">Inputs</text>
+    <text x="80" y="180" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">Jobs, routings, work centers,</text>
+    <text x="80" y="198" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">release dates, due dates,</text>
+    <text x="80" y="216" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">priorities, changeovers.</text>
+  </g>
+
+  <g>
+    <rect x="364" y="96" width="250" height="150" fill="#FCFBF7" stroke="#DAD6CA"/>
+    <text x="380" y="124" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="1.8" fill="#A63D28">02</text>
+    <text x="380" y="152" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#14160F">Schedule</text>
+    <text x="380" y="180" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">Finite-capacity list scheduling</text>
+    <text x="380" y="198" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">with EDD, priority, SPT and</text>
+    <text x="380" y="216" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">slack, then seeded annealing.</text>
+  </g>
+
+  <g>
+    <rect x="664" y="96" width="250" height="150" fill="#FCFBF7" stroke="#DAD6CA"/>
+    <text x="680" y="124" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="1.8" fill="#A63D28">03</text>
+    <text x="680" y="152" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#14160F">Diagnose</text>
+    <text x="680" y="180" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">Every late minute attributed</text>
+    <text x="680" y="198" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">to queue time at the binding</text>
+    <text x="680" y="216" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#3B3E34">work center, in plain language.</text>
+  </g>
+
+  <g>
+    <rect x="964" y="96" width="250" height="150" fill="#262A22"/>
+    <text x="980" y="124" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="1.8" fill="#E08A6F">04</text>
+    <text x="980" y="152" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#F2F0E9">Decide</text>
+    <text x="980" y="180" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#DAD6CA">Like-for-like what-if on the</text>
+    <text x="980" y="198" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#DAD6CA">bottleneck: minutes saved,</text>
+    <text x="980" y="216" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" fill="#DAD6CA">late jobs cleared, before capex.</text>
+  </g>
+
+  <!-- Arrows -->
+  <g stroke="#B9B4A4" stroke-width="1.4" fill="none">
+    <path d="M322 171h26"/><path d="M344 166l6 5-6 5"/>
+    <path d="M622 171h26"/><path d="M644 166l6 5-6 5"/>
+    <path d="M922 171h26"/><path d="M944 166l6 5-6 5"/>
+  </g>
+
+  <text x="64" y="280" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="1.6" fill="#9A9D92">THE SAME SEED AND INPUTS ALWAYS PRODUCE THE SAME SCHEDULE &#183; HEURISTIC, NOT OPTIMAL</text>
+</svg>

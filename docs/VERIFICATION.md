@@ -170,6 +170,12 @@ fixtures. They are not stitched mockups. The current set shows **Ajao Precision
 Works**, NGN, Tunde Ajao as owner, Ngozi Eze as editor, Amina Bello as viewer,
 and the fictional Nigerian customer mix.
 
+Two README diagrams are authored SVGs rather than goldens: `readme-hero.svg`
+(banner) and `how-it-works.svg` (the inputs → schedule → diagnose → decide
+pipeline). They are hand-drawn with the app's palette and are illustrative, not
+generated from the code. Their numbers repeat the Ajao demo figures described
+above.
+
 ## 6.1 Product film
 
 All four cuts were re-rendered with the Nigerian workspace and a Nigerian

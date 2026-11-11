@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 460" role="img" aria-label="Takt — the scheduler that tells you why you're late">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#DAD6CA" stroke-width="1" opacity="0.45"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="460" fill="#F2F0E9"/>
+  <rect width="1600" height="460" fill="url(#grid)"/>
+  <rect x="0" y="0" width="6" height="460" fill="#A63D28"/>
+
+  <!-- Registration marks -->
+  <g stroke="#B9B4A4" stroke-width="1">
+    <path d="M40 24v16M32 32h16"/>
+    <path d="M1560 24v16M1552 32h16"/>
+    <path d="M40 420v16M32 428h16"/>
+    <path d="M1560 420v16M1552 428h16"/>
+  </g>
+
+  <!-- Mark -->
+  <g transform="translate(80 60) scale(1.2)">
+    <rect width="64" height="64" fill="#F2F0E9"/>
+    <g transform="translate(8 8) scale(1.5)">
+      <rect x="2" y="5" width="28" height="5.2" rx="1.2" fill="#14160F"/>
+      <rect x="2" y="13.4" width="18" height="5.2" rx="1.2" fill="#14160F"/>
+      <rect x="2" y="21.8" width="28" height="5.2" rx="1.2" fill="#A63D28"/>
+      <rect x="22" y="21.8" width="2" height="5.2" fill="#F2F0E9"/>
+    </g>
+  </g>
+
+  <text x="172" y="98" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="38" font-weight="600" letter-spacing="10" fill="#14160F">TAKT</text>
+  <text x="174" y="122" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="2.6" fill="#70746A">FINITE-CAPACITY SCHEDULER</text>
+
+  <text x="80" y="208" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="44" font-weight="600" letter-spacing="-1.2" fill="#14160F">The scheduler that tells you</text>
+  <text x="80" y="254" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="44" font-weight="600" letter-spacing="-1.2" fill="#14160F"><tspan fill="#A63D28">why</tspan> you&#8217;re late.</text>
+
+  <text x="80" y="302" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="16.5" fill="#3B3E34">Explainable scheduling for high-mix, low-volume job shops.</text>
+
+  <line x1="80" y1="340" x2="860" y2="340" stroke="#DAD6CA"/>
+
+  <text x="80" y="376" font-family="IBM Plex Mono, Consolas, monospace" font-size="12.5" letter-spacing="2.2" fill="#70746A">FLUTTER  &#183;  SERVERPOD  &#183;  POSTGRESQL</text>
+  <text x="80" y="402" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="1.8" fill="#9A9D92">BUILT FOR HIGH-MIX SHOPS IN LAGOS, NNEWI, ABA AND KANO</text>
+
+  <!-- Constraint card -->
+  <g>
+    <rect x="940" y="64" width="580" height="332" fill="#262A22"/>
+
+    <text x="968" y="104" font-family="IBM Plex Mono, Consolas, monospace" font-size="10.5" letter-spacing="2.2" fill="#9A9D92">THE CONSTRAINT</text>
+    <text x="968" y="148" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="32" font-weight="600" fill="#F2F0E9">CNC Mill 2</text>
+    <text x="968" y="180" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" fill="#B9B4A4">Jobs spent 107h 45m waiting here.</text>
+
+    <text x="1492" y="150" text-anchor="end" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="60" font-weight="600" fill="#F2F0E9">91%</text>
+    <text x="1492" y="170" text-anchor="end" font-family="IBM Plex Mono, Consolas, monospace" font-size="9.5" letter-spacing="1.8" fill="#9A9D92">OF AVAILABLE TIME</text>
+
+    <line x1="968" y1="212" x2="1492" y2="212" stroke="#3B3E34"/>
+
+    <text x="968" y="244" font-family="IBM Plex Mono, Consolas, monospace" font-size="12" letter-spacing="1.6" fill="#B9B4A4">J-1051  &#183;  ADAPTER PLATE</text>
+    <text x="968" y="282" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#E08A6F">+26h 40m late</text>
+    <text x="1492" y="244" text-anchor="end" font-family="IBM Plex Mono, Consolas, monospace" font-size="9.5" letter-spacing="1.6" fill="#9A9D92">100% QUEUE AT CNC MILL 2</text>
+
+    <rect x="968" y="316" width="8" height="8" fill="#A63D28"/>
+    <text x="986" y="325" font-family="IBM Plex Mono, Consolas, monospace" font-size="11" letter-spacing="1.6" fill="#E3EDE9">TEST +1 MACHINE  &#8594;  1,600 MIN RECOVERED</text>
+  </g>
+</svg>
